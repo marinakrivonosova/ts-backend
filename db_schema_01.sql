@@ -13,131 +13,133 @@
 -- -- ddl-end --
 -- 
 
--- object: public."USERS" | type: TABLE --
--- DROP TABLE IF EXISTS public."USERS" CASCADE;
-CREATE TABLE public."USERS"(
-	user_id varchar(32) NOT NULL,
+-- object: public."users" | type: TABLE --
+-- DROP TABLE IF EXISTS public."users" CASCADE;
+CREATE TABLE public."users"(
+	id varchar(32) NOT NULL,
 	name varchar(64) NOT NULL,
 	surname varchar(64) NOT NULL,
-	birth_date date NOT NULL,
+	birthdate date NOT NULL,
 	email varchar(64) NOT NULL,
-	hashed_password varchar(32) NOT NULL,
-	phone_number varchar(32) NOT NULL,
-	CONSTRAINT "USERS_pk" PRIMARY KEY (user_id)
+	password varchar(32) NOT NULL,
+	phone varchar(32) NOT NULL,
+	CONSTRAINT "users_pk" PRIMARY KEY (id)
 
 );
 -- ddl-end --
-ALTER TABLE public."USERS" OWNER TO postgres;
+ALTER TABLE public."users" OWNER TO postgres;
 -- ddl-end --
 
--- object: public."GOODS" | type: TABLE --
--- DROP TABLE IF EXISTS public."GOODS" CASCADE;
-CREATE TABLE public."GOODS"(
-	goods_id varchar(32) NOT NULL,
-	title varchar(256) NOT NULL,
+-- object: public."products" | type: TABLE --
+-- DROP TABLE IF EXISTS public."products" CASCADE;
+CREATE TABLE public."products"(
+	id varchar(32) NOT NULL,
+	name varchar(256) NOT NULL,
+	description varchar(256),
 	price decimal(10,2) NOT NULL,
 	weight smallint NOT NULL,
 	volume smallint NOT NULL,
 	count smallint NOT NULL,
 	category_id varchar(32) NOT NULL,
-	CONSTRAINT "GOODS_pk" PRIMARY KEY (goods_id)
+	CONSTRAINT "products_pk" PRIMARY KEY (id)
 
 );
 -- ddl-end --
-ALTER TABLE public."GOODS" OWNER TO postgres;
+ALTER TABLE public."products" OWNER TO postgres;
 -- ddl-end --
 
--- object: public."CATEGORIES" | type: TABLE --
--- DROP TABLE IF EXISTS public."CATEGORIES" CASCADE;
-CREATE TABLE public."CATEGORIES"(
-	category_id varchar(32) NOT NULL,
+-- object: public."categories" | type: TABLE --
+-- DROP TABLE IF EXISTS public."categories" CASCADE;
+CREATE TABLE public."categories"(
+	id varchar(32) NOT NULL,
 	name varchar(256),
-	CONSTRAINT "CATEGORIES_pk" PRIMARY KEY (category_id)
+	description varchar(256),
+	CONSTRAINT "categories_pk" PRIMARY KEY (id)
 
 );
 -- ddl-end --
-ALTER TABLE public."CATEGORIES" OWNER TO postgres;
+ALTER TABLE public."categories" OWNER TO postgres;
 -- ddl-end --
 
--- object: public."GOODS_ATTRIBUTES" | type: TABLE --
--- DROP TABLE IF EXISTS public."GOODS_ATTRIBUTES" CASCADE;
-CREATE TABLE public."GOODS_ATTRIBUTES"(
-	attribute_id varchar(32) NOT NULL,
-	goods_id varchar(32) NOT NULL,
+-- object: public."products_attributes" | type: TABLE --
+-- DROP TABLE IF EXISTS public."products_attributes" CASCADE;
+CREATE TABLE public."product_attributes"(
+	id varchar(32) NOT NULL,
 	name varchar(32) NOT NULL,
 	value varchar(32) NOT NULL,
-	CONSTRAINT "GOOD_ATTRIBUTES_pk" PRIMARY KEY (attribute_id)
+	product_id varchar(32) NOT NULL,
+	CONSTRAINT "product_attributes_pk" PRIMARY KEY (id)
 
 );
 -- ddl-end --
-ALTER TABLE public."GOODS_ATTRIBUTES" OWNER TO postgres;
+ALTER TABLE public."products_attributes" OWNER TO postgres;
 -- ddl-end --
 
--- object: public."ORDERS" | type: TABLE --
--- DROP TABLE IF EXISTS public."ORDERS" CASCADE;
-CREATE TABLE public."ORDERS"(
-	order_id varchar(32) NOT NULL,
+-- object: public."orders" | type: TABLE --
+-- DROP TABLE IF EXISTS public."orders" CASCADE;
+CREATE TABLE public."orders"(
+	id varchar(32) NOT NULL,
 	user_id varchar(32) NOT NULL,
 	address varchar(256) NOT NULL,
-	payment_method varchar(32) NOT NULL,
-	payment_status varchar(32) NOT NULL,
-	delivery_method varchar(32) NOT NULL,
-	order_status varchar(32) NOT NULL,
-	comments varchar(1000),
-	CONSTRAINT "ORDERS_pk" PRIMARY KEY (order_id)
+	payment_method varchar(32) NOT NULL, -- the payment methods have to be listed in a predefined table and there should be a foreign key to the "payment_methods" table
+	payment_status varchar(32) NOT NULL, -- the payment statuses have to be listed in a predefined table and there has to be a foreign key to the "payment_statuses" table
+	delivery_method varchar(32) NOT NULL, -- the delivery methods have to be listed in a predefined table and there should be a foreign key to the "delivery_methods" table
+	status varchar(32) NOT NULL, -- the statuses have to be listed in a predefined table and there has to be a foreign key to the "order_statuses" table
+	-- comments varchar(1000), -- the comments have to be presented by a many-to-many relationship with an order
+	CONSTRAINT "orders_pk" PRIMARY KEY (id)
 
 );
 -- ddl-end --
-ALTER TABLE public."ORDERS" OWNER TO postgres;
+ALTER TABLE public."orders" OWNER TO postgres;
 -- ddl-end --
 
--- object: public."LINE_ITEMS" | type: TABLE --
--- DROP TABLE IF EXISTS public."LINE_ITEMS" CASCADE;
-CREATE TABLE public."LINE_ITEMS"(
-	line_item_id varchar(32) NOT NULL,
+-- object: public."line_items" | type: TABLE --
+-- DROP TABLE IF EXISTS public."line_items" CASCADE;
+CREATE TABLE public."line_items"(
+	id varchar(32) NOT NULL,
 	order_id varchar(32) NOT NULL,
-	good_id varchar(32) NOT NULL,
+	product_id varchar(32) NOT NULL,
 	count smallint NOT NULL,
 	price smallint NOT NULL,
-	CONSTRAINT "LINE_ITEMS_pk" PRIMARY KEY (line_item_id)
+	CONSTRAINT "line_items_pk" PRIMARY KEY (id)
 
 );
 -- ddl-end --
-ALTER TABLE public."LINE_ITEMS" OWNER TO postgres;
+ALTER TABLE public."line_items" OWNER TO postgres;
 -- ddl-end --
 
--- object: goods_category_id_fk | type: CONSTRAINT --
--- ALTER TABLE public."GOODS" DROP CONSTRAINT IF EXISTS goods_category_id_fk CASCADE;
-ALTER TABLE public."GOODS" ADD CONSTRAINT goods_category_id_fk FOREIGN KEY (category_id)
-REFERENCES public."CATEGORIES" (category_id) MATCH FULL
+-- object: products_category_id_fk | type: CONSTRAINT --
+-- ALTER TABLE public."products" DROP CONSTRAINT IF EXISTS products_category_id_fk CASCADE;
+ALTER TABLE public."products" ADD CONSTRAINT products_category_id_fk FOREIGN KEY (category_id)
+REFERENCES public."categories" (id) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
--- object: goods_attributes_goods_id_fk | type: CONSTRAINT --
--- ALTER TABLE public."GOODS_ATTRIBUTES" DROP CONSTRAINT IF EXISTS goods_attributes_goods_id_fk CASCADE;
-ALTER TABLE public."GOODS_ATTRIBUTES" ADD CONSTRAINT goods_attributes_goods_id_fk FOREIGN KEY (goods_id)
-REFERENCES public."GOODS" (goods_id) MATCH FULL
+-- object: product_attributes_product_id_fk | type: CONSTRAINT --
+-- ALTER TABLE public."product_attributes" DROP CONSTRAINT IF EXISTS product_attributes_product_id_fk CASCADE;
+ALTER TABLE public."product_attributes" ADD CONSTRAINT product_attributes_product_id_fk FOREIGN KEY (product_id)
+REFERENCES public."products" (id) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
 -- object: orders_user_id_fk | type: CONSTRAINT --
--- ALTER TABLE public."ORDERS" DROP CONSTRAINT IF EXISTS orders_user_id_fk CASCADE;
-ALTER TABLE public."ORDERS" ADD CONSTRAINT orders_user_id_fk FOREIGN KEY (user_id)
-REFERENCES public."USERS" (user_id) MATCH FULL
+-- ALTER TABLE public."orders" DROP CONSTRAINT IF EXISTS orders_user_id_fk CASCADE;
+ALTER TABLE public."orders" ADD CONSTRAINT orders_user_id_fk FOREIGN KEY (user_id)
+REFERENCES public."users" (id) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
 -- object: line_items_order_id_fk | type: CONSTRAINT --
--- ALTER TABLE public."LINE_ITEMS" DROP CONSTRAINT IF EXISTS line_items_order_id_fk CASCADE;
-ALTER TABLE public."LINE_ITEMS" ADD CONSTRAINT line_items_order_id_fk FOREIGN KEY (order_id)
-REFERENCES public."ORDERS" (order_id) MATCH FULL
+-- ALTER TABLE public."line_items" DROP CONSTRAINT IF EXISTS line_items_order_id_fk CASCADE;
+ALTER TABLE public."line_items" ADD CONSTRAINT line_items_order_id_fk FOREIGN KEY (order_id)
+REFERENCES public."orders" (id) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
--- object: line_items_good_id_fk | type: CONSTRAINT --
--- ALTER TABLE public."LINE_ITEMS" DROP CONSTRAINT IF EXISTS line_items_good_id_fk CASCADE;
-ALTER TABLE public."LINE_ITEMS" ADD CONSTRAINT line_items_good_id_fk FOREIGN KEY (good_id)
-REFERENCES public."GOODS" (goods_id) MATCH FULL
+-- object: line_items_product_id_fk | type: CONSTRAINT --
+-- ALTER TABLE public."line_items" DROP CONSTRAINT IF EXISTS line_items_product_id_fk CASCADE;
+ALTER TABLE public."line_items" ADD CONSTRAINT line_items_product_id_fk FOREIGN KEY (product_id)
+REFERENCES public."products" (id) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
