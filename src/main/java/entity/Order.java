@@ -1,32 +1,24 @@
 package entity;
 
-import enums.DeliveryMethod;
-import enums.OrderStatus;
-import enums.PaymentMethod;
-import enums.PaymentStatus;
-
 import java.util.Objects;
 
 public class Order {
     private String orderId;
     private String userId;
     private String address;
-    private OrderStatus orderStatus;
-    private DeliveryMethod deliveryMethod;
-    private PaymentMethod paymentMethod;
-    private PaymentStatus paymentStatus;
-    private String comment;
+    private String orderStatusId;
+    private String deliveryMethodId;
+    private String paymentMethodId;
+    private String paymentStatusId;
 
-    public Order(final String orderId, final String userId, final String address, final OrderStatus orderStatus, final DeliveryMethod deliveryMethod,
-                 final PaymentMethod paymentMethod, final PaymentStatus paymentStatus, final String comment) {
+    public Order(String orderId, String userId, String address, String orderStatusId, String deliveryMethodId, String paymentMethodId, String paymentStatusId) {
         this.orderId = orderId;
         this.userId = userId;
         this.address = address;
-        this.orderStatus = orderStatus;
-        this.deliveryMethod = deliveryMethod;
-        this.paymentMethod = paymentMethod;
-        this.paymentStatus = paymentStatus;
-        this.comment = comment;
+        this.orderStatusId = orderStatusId;
+        this.deliveryMethodId = deliveryMethodId;
+        this.paymentMethodId = paymentMethodId;
+        this.paymentStatusId = paymentStatusId;
     }
 
     public Order() {
@@ -36,7 +28,7 @@ public class Order {
         return orderId;
     }
 
-    public void setOrderId(final String orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -44,7 +36,7 @@ public class Order {
         return userId;
     }
 
-    public void setUserId(final String userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -52,48 +44,40 @@ public class Order {
         return address;
     }
 
-    public void setAddress(final String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
+    public String getOrderStatusId() {
+        return orderStatusId;
     }
 
-    public void setOrderStatus(final OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setOrderStatusId(String orderStatusId) {
+        this.orderStatusId = orderStatusId;
     }
 
-    public DeliveryMethod getDeliveryMethod() {
-        return deliveryMethod;
+    public String getDeliveryMethodId() {
+        return deliveryMethodId;
     }
 
-    public void setDeliveryMethod(final DeliveryMethod deliveryMethod) {
-        this.deliveryMethod = deliveryMethod;
+    public void setDeliveryMethodId(String deliveryMethodId) {
+        this.deliveryMethodId = deliveryMethodId;
     }
 
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
+    public String getPaymentMethodId() {
+        return paymentMethodId;
     }
 
-    public void setPaymentMethod(final PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setPaymentMethodId(String paymentMethodId) {
+        this.paymentMethodId = paymentMethodId;
     }
 
-    public PaymentStatus getPaymentStatus() {
-        return paymentStatus;
+    public String getPaymentStatusId() {
+        return paymentStatusId;
     }
 
-    public void setPaymentStatus(final PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(final String comment) {
-        this.comment = comment;
+    public void setPaymentStatusId(String paymentStatusId) {
+        this.paymentStatusId = paymentStatusId;
     }
 
     @Override
@@ -104,16 +88,15 @@ public class Order {
         return orderId.equals(order.orderId) &&
                 userId.equals(order.userId) &&
                 address.equals(order.address) &&
-                orderStatus == order.orderStatus &&
-                deliveryMethod == order.deliveryMethod &&
-                paymentMethod == order.paymentMethod &&
-                paymentStatus == order.paymentStatus &&
-                comment.equals(order.comment);
+                orderStatusId.equals(order.orderStatusId) &&
+                deliveryMethodId.equals(order.deliveryMethodId) &&
+                paymentMethodId.equals(order.paymentMethodId) &&
+                paymentStatusId.equals(order.paymentStatusId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, userId, address, orderStatus, deliveryMethod, paymentMethod, paymentStatus, comment);
+        return Objects.hash(orderId, userId, address, orderStatusId, deliveryMethodId, paymentMethodId, paymentStatusId);
     }
 
     @Override
@@ -122,11 +105,10 @@ public class Order {
                 "orderId='" + orderId + '\'' +
                 ", userId='" + userId + '\'' +
                 ", address='" + address + '\'' +
-                ", orderStatus=" + orderStatus +
-                ", deliveryMethod=" + deliveryMethod +
-                ", paymentMethod=" + paymentMethod +
-                ", paymentStatus=" + paymentStatus +
-                ", comment='" + comment + '\'' +
+                ", orderStatusId='" + orderStatusId + '\'' +
+                ", deliveryMethodId='" + deliveryMethodId + '\'' +
+                ", paymentMethodId='" + paymentMethodId + '\'' +
+                ", paymentStatusId='" + paymentStatusId + '\'' +
                 '}';
     }
 }

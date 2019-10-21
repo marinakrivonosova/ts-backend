@@ -5,22 +5,22 @@ import java.util.Objects;
 
 public class User {
     private String userId;
-    private String name;
-    private String surname;
+    private String firstName;
+    private String lastName;
     private LocalDate birthDate;
     private String email;
-    private String hashedPassword;
-    private String phoneNumber;
+    private String password;
+    private String phone;
 
-    public User(final String userId, final String name, final String surname, final LocalDate birthDate,
-                final String email, final String hashedPassword, final String phoneNumber) {
+    public User(final String userId, final String firstName, final String lastName, final LocalDate birthDate,
+                final String email, final String password, final String phone) {
         this.userId = userId;
-        this.name = name;
-        this.surname = surname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.birthDate = birthDate;
         this.email = email;
-        this.hashedPassword = hashedPassword;
-        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.phone = phone;
     }
 
     public User() {
@@ -34,20 +34,20 @@ public class User {
         this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurname(final String surname) {
-        this.surname = surname;
+    public void setLastName(final String lastName) {
+        this.lastName = lastName;
     }
 
     public LocalDate getBirthDate() {
@@ -66,20 +66,20 @@ public class User {
         this.email = email;
     }
 
-    public String getHashedPassword() {
-        return hashedPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setHashedPassword(final String hashedPassword) {
-        this.hashedPassword = hashedPassword;
+    public void setPassword(final String password) {
+        this.password = password;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(final String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(final String phone) {
+        this.phone = phone;
     }
 
     @Override
@@ -88,29 +88,29 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return userId.equals(user.userId) &&
-                name.equals(user.name) &&
-                surname.equals(user.surname) &&
+                firstName.equals(user.firstName) &&
+                lastName.equals(user.lastName) &&
                 birthDate.equals(user.birthDate) &&
                 email.equals(user.email) &&
-                hashedPassword.equals(user.hashedPassword) &&
-                phoneNumber.equals(user.phoneNumber);
+                password.equals(user.password) &&
+                phone.equals(user.phone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, name, surname, birthDate, email, hashedPassword, phoneNumber);
+        return Objects.hash(userId, firstName, lastName, birthDate, email, password, phone);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "userId='" + userId + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                ", name='" + firstName + '\'' +
+                ", surname='" + lastName + '\'' +
                 ", birthDate=" + birthDate +
                 ", email='" + email + '\'' +
-                ", hashedPassword='" + hashedPassword + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                ", hashedPassword='" + password + '\'' +
+                ", phoneNumber='" + phone + '\'' +
                 '}';
     }
 }

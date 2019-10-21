@@ -3,31 +3,41 @@ package entity;
 import java.util.Objects;
 
 public class Category {
-    private int categoryId;
+    private String categoryId;
     private String name;
+    private String description;
 
-    public Category(final int categoryId, final String name) {
+    public Category(String categoryId, String name, String description) {
         this.categoryId = categoryId;
         this.name = name;
+        this.description = description;
     }
 
     public Category() {
     }
 
-    public void setCategoryId(final int categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public int getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -35,20 +45,22 @@ public class Category {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Category category = (Category) o;
-        return categoryId == category.categoryId &&
-                name.equals(category.name);
+        return categoryId.equals(category.categoryId) &&
+                name.equals(category.name) &&
+                description.equals(category.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(categoryId, name);
+        return Objects.hash(categoryId, name, description);
     }
 
     @Override
     public String toString() {
         return "Category{" +
-                "categoryId=" + categoryId +
+                "categoryId='" + categoryId + '\'' +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }
