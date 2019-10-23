@@ -17,8 +17,8 @@
 -- DROP TABLE IF EXISTS public."users" CASCADE;
 CREATE TABLE public."users"(
 	id varchar(32) NOT NULL,
-	first_name varchar(64) NOT NULL,
-	last_name varchar(64) NOT NULL,
+	firstname varchar(64) NOT NULL,
+	lastname varchar(64) NOT NULL,
 	birthdate date NOT NULL,
 	email varchar(64) NOT NULL,
 	password varchar(32) NOT NULL,
@@ -35,7 +35,7 @@ ALTER TABLE public."users" OWNER TO postgres;
 CREATE TABLE public."products"(
 	id varchar(32) NOT NULL,
 	name varchar(256) NOT NULL,
-	description varchar(256),
+	description varchar(256) NOT NULL,
 	price decimal(10,2) NOT NULL,
 	weight smallint NOT NULL,
 	volume smallint NOT NULL,
@@ -59,8 +59,8 @@ ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- DROP TABLE IF EXISTS public."categories" CASCADE;
 CREATE TABLE public."categories"(
 	id varchar(32) NOT NULL,
-	name varchar(256),
-	description varchar(256),
+	name varchar(256) NOT NULL,
+	description varchar(256) NOT NULL,
 	CONSTRAINT "categories_pk" PRIMARY KEY (id)
 
 );
@@ -72,7 +72,7 @@ ALTER TABLE public."categories" OWNER TO postgres;
 -- DROP TABLE IF EXISTS public."payment_methods" CASCADE;
 CREATE TABLE public."payment_methods"(
 	id varchar(32) NOT NULL,
-	payment_method varchar(256),
+	payment_method varchar(256) NOT NULL,
 	CONSTRAINT "payment_methods_pk" PRIMARY KEY (id)
 
 );
@@ -84,7 +84,7 @@ ALTER TABLE public."payment_methods" OWNER TO postgres;
 -- DROP TABLE IF EXISTS public."payment_statuses" CASCADE;
 CREATE TABLE public."payment_statuses"(
 	id varchar(32) NOT NULL,
-	payment_status varchar(256),
+	payment_status varchar(256) NOT NULL,
 	CONSTRAINT "payment_statuses_pk" PRIMARY KEY (id)
 
 );
@@ -96,7 +96,7 @@ ALTER TABLE public."payment_statuses" OWNER TO postgres;
 -- DROP TABLE IF EXISTS public."delivery_methods" CASCADE;
 CREATE TABLE public."delivery_methods"(
 	id varchar(32) NOT NULL,
-	delivery_method varchar(256),
+	delivery_method varchar(256) NOT NULL,
 	CONSTRAINT "delivery_methods_pk" PRIMARY KEY (id)
 
 );
@@ -108,7 +108,7 @@ ALTER TABLE public."delivery_methods" OWNER TO postgres;
 -- DROP TABLE IF EXISTS public."order_statuses" CASCADE;
 CREATE TABLE public."order_statuses"(
 	id varchar(32) NOT NULL,
-	order_status varchar(256),
+	order_status varchar(256) NOT NULL,
 	CONSTRAINT "order_statuses_pk" PRIMARY KEY (id)
 
 );
@@ -182,10 +182,10 @@ REFERENCES public."payment_statuses" (id) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
--- object:orders_payment_status_fk | type: CONSTRAINT --
--- ALTER TABLE public."orders" DROP CONSTRAINT IF EXISTS orders_payment_status_fk CASCADE;
-ALTER TABLE public."orders" ADD CONSTRAINT orders_payment_status_fk FOREIGN KEY (payment_status_id)
-REFERENCES public."payment_statuses" (id) MATCH FULL
+-- object:orders_payment_method_fk | type: CONSTRAINT --
+-- ALTER TABLE public."orders" DROP CONSTRAINT IF EXISTS orders_payment_method_fk CASCADE;
+ALTER TABLE public."orders" ADD CONSTRAINT orders_payment_method_fk FOREIGN KEY (payment_status_id)
+REFERENCES public."payment_methods" (id) MATCH FULL
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
