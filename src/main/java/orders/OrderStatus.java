@@ -1,4 +1,4 @@
-package entity;
+package orders;
 
 import java.util.Objects;
 
@@ -6,7 +6,7 @@ public class OrderStatus {
     private String orderStatusId;
     private String orderStatus;
 
-    public OrderStatus(String orderStatusId, String orderStatus) {
+    public OrderStatus(final String orderStatusId, final String orderStatus) {
         this.orderStatusId = orderStatusId;
         this.orderStatus = orderStatus;
     }
@@ -16,7 +16,7 @@ public class OrderStatus {
         return orderStatusId;
     }
 
-    public void setOrderStatusId(String orderStatusId) {
+    public void setOrderStatusId(final String orderStatusId) {
         this.orderStatusId = orderStatusId;
     }
 
@@ -24,7 +24,7 @@ public class OrderStatus {
         return orderStatus;
     }
 
-    public void setOrderStatus(String orderStatus) {
+    public void setOrderStatus(final String orderStatus) {
         this.orderStatus = orderStatus;
     }
 

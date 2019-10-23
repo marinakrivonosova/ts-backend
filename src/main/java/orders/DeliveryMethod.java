@@ -1,4 +1,4 @@
-package entity;
+package orders;
 
 import java.util.Objects;
 
@@ -6,7 +6,7 @@ public class DeliveryMethod {
     private String deliveryMethodId;
     private String deliveryMethod;
 
-    public DeliveryMethod(String deliveryMethodId, String deliveryMethod) {
+    public DeliveryMethod(final String deliveryMethodId,final String deliveryMethod) {
         this.deliveryMethodId = deliveryMethodId;
         this.deliveryMethod = deliveryMethod;
     }
@@ -18,7 +18,7 @@ public class DeliveryMethod {
         return deliveryMethodId;
     }
 
-    public void setDeliveryMethodId(String deliveryMethodId) {
+    public void setDeliveryMethodId(final String deliveryMethodId) {
         this.deliveryMethodId = deliveryMethodId;
     }
 
@@ -26,7 +26,7 @@ public class DeliveryMethod {
         return deliveryMethod;
     }
 
-    public void setDeliveryMethod(String deliveryMethod) {
+    public void setDeliveryMethod(final String deliveryMethod) {
         this.deliveryMethod = deliveryMethod;
     }
 

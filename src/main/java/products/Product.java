@@ -1,4 +1,4 @@
-package entity;
+package products;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -32,7 +32,7 @@ public class Product {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(final String productId) {
         this.productId = productId;
     }
 
@@ -40,7 +40,7 @@ public class Product {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -48,7 +48,7 @@ public class Product {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -56,7 +56,7 @@ public class Product {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(final BigDecimal price) {
         this.price = price;
     }
 
@@ -64,7 +64,7 @@ public class Product {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(final int weight) {
         this.weight = weight;
     }
 
@@ -72,7 +72,7 @@ public class Product {
         return volume;
     }
 
-    public void setVolume(int volume) {
+    public void setVolume(final int volume) {
         this.volume = volume;
     }
 
@@ -80,7 +80,7 @@ public class Product {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(final int count) {
         this.count = count;
     }
 
@@ -88,7 +88,7 @@ public class Product {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(final String categoryId) {
         this.categoryId = categoryId;
     }
 

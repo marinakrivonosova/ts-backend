@@ -1,4 +1,4 @@
-package entity;
+package orders;
 
 import java.util.Objects;
 
@@ -6,7 +6,7 @@ public class PaymentMethod {
     private String paymentMethodId;
     private String paymentMethod;
 
-    public PaymentMethod(String paymentMethodId, String paymentMethod) {
+    public PaymentMethod(final String paymentMethodId, final String paymentMethod) {
         this.paymentMethodId = paymentMethodId;
         this.paymentMethod = paymentMethod;
     }
@@ -16,7 +16,7 @@ public class PaymentMethod {
         return paymentMethodId;
     }
 
-    public void setPaymentMethodId(String paymentMethodId) {
+    public void setPaymentMethodId(final String paymentMethodId) {
         this.paymentMethodId = paymentMethodId;
     }
 
@@ -24,7 +24,7 @@ public class PaymentMethod {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
+    public void setPaymentMethod(final String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 

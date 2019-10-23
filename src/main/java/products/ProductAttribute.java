@@ -1,4 +1,4 @@
-package entity;
+package products;
 
 import java.util.Objects;
 
@@ -21,7 +21,7 @@ public class ProductAttribute {
         return productAttributesId;
     }
 
-    public void setProductAttributesId(String productAttributesId) {
+    public void setProductAttributesId(final String productAttributesId) {
         this.productAttributesId = productAttributesId;
     }
 
@@ -29,7 +29,7 @@ public class ProductAttribute {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(final String productId) {
         this.productId = productId;
     }
 
@@ -37,7 +37,7 @@ public class ProductAttribute {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -45,7 +45,7 @@ public class ProductAttribute {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(final String value) {
         this.value = value;
     }
 

@@ -1,4 +1,4 @@
-package entity;
+package orders;
 
 import java.util.Objects;
 
@@ -11,7 +11,8 @@ public class Order {
     private String paymentMethodId;
     private String paymentStatusId;
 
-    public Order(String orderId, String userId, String address, String orderStatusId, String deliveryMethodId, String paymentMethodId, String paymentStatusId) {
+    public Order(final String orderId, final String userId, final String address, final String orderStatusId,
+                 final String deliveryMethodId, final String paymentMethodId, final String paymentStatusId) {
         this.orderId = orderId;
         this.userId = userId;
         this.address = address;
@@ -28,7 +29,7 @@ public class Order {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(final String orderId) {
         this.orderId = orderId;
     }
 
@@ -36,7 +37,7 @@ public class Order {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(final String userId) {
         this.userId = userId;
     }
 
@@ -44,7 +45,7 @@ public class Order {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(final String address) {
         this.address = address;
     }
 
@@ -52,7 +53,7 @@ public class Order {
         return orderStatusId;
     }
 
-    public void setOrderStatusId(String orderStatusId) {
+    public void setOrderStatusId(final String orderStatusId) {
         this.orderStatusId = orderStatusId;
     }
 
@@ -60,7 +61,7 @@ public class Order {
         return deliveryMethodId;
     }
 
-    public void setDeliveryMethodId(String deliveryMethodId) {
+    public void setDeliveryMethodId(final String deliveryMethodId) {
         this.deliveryMethodId = deliveryMethodId;
     }
 
@@ -68,7 +69,7 @@ public class Order {
         return paymentMethodId;
     }
 
-    public void setPaymentMethodId(String paymentMethodId) {
+    public void setPaymentMethodId(final String paymentMethodId) {
         this.paymentMethodId = paymentMethodId;
     }
 
@@ -76,7 +77,7 @@ public class Order {
         return paymentStatusId;
     }
 
-    public void setPaymentStatusId(String paymentStatusId) {
+    public void setPaymentStatusId(final String paymentStatusId) {
         this.paymentStatusId = paymentStatusId;
     }
 

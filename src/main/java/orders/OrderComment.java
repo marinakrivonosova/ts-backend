@@ -1,4 +1,4 @@
-package entity;
+package orders;
 
 import java.util.Objects;
 
@@ -7,7 +7,7 @@ public class OrderComment {
     private String orderId;
     private String comment;
 
-    public OrderComment(String orderCommentId, String orderId, String comment) {
+    public OrderComment(final String orderCommentId, final String orderId, final String comment) {
         this.orderCommentId = orderCommentId;
         this.orderId = orderId;
         this.comment = comment;
@@ -20,7 +20,7 @@ public class OrderComment {
         return orderCommentId;
     }
 
-    public void setOrderCommentId(String orderCommentId) {
+    public void setOrderCommentId(final String orderCommentId) {
         this.orderCommentId = orderCommentId;
     }
 
@@ -28,7 +28,7 @@ public class OrderComment {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(final String orderId) {
         this.orderId = orderId;
     }
 
@@ -36,7 +36,7 @@ public class OrderComment {
         return comment;
     }
 
-    public void setComment(String comment) {
+    public void setComment(final String comment) {
         this.comment = comment;
     }
 
