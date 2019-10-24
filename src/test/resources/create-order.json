@@ -1,0 +1,10 @@
+{
+  "productIds": [
+    "abc",
+    "def"
+  ],
+  "address": "Earth",
+  "paymentMethod": "cash",
+  "deliveryMethod": "post",
+  "count": 5
+}

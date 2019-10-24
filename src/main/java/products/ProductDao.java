@@ -44,10 +44,27 @@ public class ProductDao {
         namedParameterJdbcTemplate.update(query, sqlParameterSource, new GeneratedKeyHolder());
     }
 
-    public Product getProduct(final String productId){
+    public Product getProduct(final String productId) {
         final String query = "SELECT * FROM products WHERE product_id = :productId";
         final SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
                 .addValue("productId", productId);
         return namedParameterJdbcTemplate.queryForObject(query, sqlParameterSource, BeanPropertyRowMapper.newInstance(Product.class));
+    }
+
+    public void updateProduct(final Product product) {
+        final String query = "UPDATE products" +
+                " SET name = :name, description = :description, price = :price," +
+                " weight = :weight, volume = :volume, count = :count, category_id = :categoryId" +
+                " WHERE product_id = :productId";
+        final SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
+                .addValue("productId", product.getProductId())
+                .addValue("name", product.getName())
+                .addValue("description", product.getDescription())
+                .addValue("price", product.getPrice())
+                .addValue("weight", product.getWeight())
+                .addValue("volume", product.getVolume())
+                .addValue("count", product.getCount())
+                .addValue("categoryId", product.getCategoryId());
+        namedParameterJdbcTemplate.update(query, sqlParameterSource);
     }
 }

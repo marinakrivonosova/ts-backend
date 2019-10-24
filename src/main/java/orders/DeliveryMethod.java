@@ -6,12 +6,12 @@ public class DeliveryMethod {
     private String deliveryMethodId;
     private String deliveryMethod;
 
-    public DeliveryMethod(final String deliveryMethodId,final String deliveryMethod) {
+    public DeliveryMethod(final String deliveryMethodId, final String deliveryMethod) {
         this.deliveryMethodId = deliveryMethodId;
         this.deliveryMethod = deliveryMethod;
     }
 
-    public DeliveryMethod(){
+    public DeliveryMethod() {
     }
 
     public String getDeliveryMethodId() {

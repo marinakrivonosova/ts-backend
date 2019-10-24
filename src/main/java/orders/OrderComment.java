@@ -3,12 +3,12 @@ package orders;
 import java.util.Objects;
 
 public class OrderComment {
-    private String orderCommentId;
+    private String id;
     private String orderId;
     private String comment;
 
-    public OrderComment(final String orderCommentId, final String orderId, final String comment) {
-        this.orderCommentId = orderCommentId;
+    public OrderComment(final String id, final String orderId, final String comment) {
+        this.id = id;
         this.orderId = orderId;
         this.comment = comment;
     }
@@ -16,12 +16,12 @@ public class OrderComment {
     public OrderComment() {
     }
 
-    public String getOrderCommentId() {
-        return orderCommentId;
+    public String getId() {
+        return id;
     }
 
-    public void setOrderCommentId(final String orderCommentId) {
-        this.orderCommentId = orderCommentId;
+    public void setId(final String id) {
+        this.id = id;
     }
 
     public String getOrderId() {
@@ -45,20 +45,20 @@ public class OrderComment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderComment that = (OrderComment) o;
-        return orderCommentId.equals(that.orderCommentId) &&
+        return id.equals(that.id) &&
                 orderId.equals(that.orderId) &&
                 comment.equals(that.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderCommentId, orderId, comment);
+        return Objects.hash(id, orderId, comment);
     }
 
     @Override
     public String toString() {
         return "OrderComment{" +
-                "orderCommentId='" + orderCommentId + '\'' +
+                "orderCommentId='" + id + '\'' +
                 ", orderId='" + orderId + '\'' +
                 ", comment='" + comment + '\'' +
                 '}';
