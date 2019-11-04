@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="product-entity-schema" author="Marina Krivonosova">
+        <createTable tableName="categories">
+            <column name="category_id" type="varchar(32)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="products">
+            <column name="product_id" type="varchar(32)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weight" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="volume" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="count" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="varchar(32)">
+                <constraints nullable="false" foreignKeyName="products_category_id_fk"
+                             referencedTableName="categories" referencedColumnNames="category_id"/>
+            </column>
+        </createTable>
+        <createTable tableName="product_attributes">
+            <column name="product_attribute_id" type="varchar(32)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="varchar(32)">
+                <constraints nullable="false" foreignKeyName="product_attributes_product_id_fk"
+                             referencedColumnNames="product_id" referencedTableName="products"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
