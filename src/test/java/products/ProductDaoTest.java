@@ -56,4 +56,19 @@ class ProductDaoTest {
         assertEquals(new Product("prId4", "armchair", "very soft", new BigDecimal("2000.00"), 5, 3, 10, "ctId2"),
                 productDao.getProduct("prId4"));
     }
+
+    @Test
+    public void updateOrderTest() {
+        final Product product = new Product("prId1", "tv", "full hd", new BigDecimal("10000.00"), 2, 1, 100, "ctId1");
+        productDao.addProduct(product);
+
+        assertEquals(product, productDao.getProduct("prId1"));
+
+        product.setName("tv samsung");
+        product.setCount(250);
+
+        productDao.updateProduct(product);
+        assertEquals(product.getCount(), productDao.getProduct("prId1").getCount());
+        assertEquals(product.getName(), productDao.getProduct("prId1").getName());
+    }
 }

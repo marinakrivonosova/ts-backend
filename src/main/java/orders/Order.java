@@ -3,17 +3,17 @@ package orders;
 import java.util.Objects;
 
 public class Order {
-    private String orderId;
+    private String id;
     private String userId;
     private String address;
-    private String orderStatusId;
     private String deliveryMethodId;
     private String paymentMethodId;
+    private String orderStatusId;
     private String paymentStatusId;
 
-    public Order(final String orderId, final String userId, final String address, final String orderStatusId,
+    public Order(final String id, final String userId, final String address, final String orderStatusId,
                  final String deliveryMethodId, final String paymentMethodId, final String paymentStatusId) {
-        this.orderId = orderId;
+        this.id = id;
         this.userId = userId;
         this.address = address;
         this.orderStatusId = orderStatusId;
@@ -25,12 +25,12 @@ public class Order {
     public Order() {
     }
 
-    public String getOrderId() {
-        return orderId;
+    public String getId() {
+        return id;
     }
 
-    public void setOrderId(final String orderId) {
-        this.orderId = orderId;
+    public void setId(final String id) {
+        this.id = id;
     }
 
     public String getUserId() {
@@ -82,33 +82,33 @@ public class Order {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return orderId.equals(order.orderId) &&
+        final Order order = (Order) o;
+        return id.equals(order.id) &&
                 userId.equals(order.userId) &&
                 address.equals(order.address) &&
-                orderStatusId.equals(order.orderStatusId) &&
                 deliveryMethodId.equals(order.deliveryMethodId) &&
                 paymentMethodId.equals(order.paymentMethodId) &&
+                orderStatusId.equals(order.orderStatusId) &&
                 paymentStatusId.equals(order.paymentStatusId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, userId, address, orderStatusId, deliveryMethodId, paymentMethodId, paymentStatusId);
+        return Objects.hash(id, userId, address, deliveryMethodId, paymentMethodId, orderStatusId, paymentStatusId);
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "orderId='" + orderId + '\'' +
+                "id='" + id + '\'' +
                 ", userId='" + userId + '\'' +
                 ", address='" + address + '\'' +
-                ", orderStatusId='" + orderStatusId + '\'' +
                 ", deliveryMethodId='" + deliveryMethodId + '\'' +
                 ", paymentMethodId='" + paymentMethodId + '\'' +
+                ", orderStatusId='" + orderStatusId + '\'' +
                 ", paymentStatusId='" + paymentStatusId + '\'' +
                 '}';
     }

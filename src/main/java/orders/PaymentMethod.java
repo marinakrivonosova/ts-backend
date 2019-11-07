@@ -3,21 +3,23 @@ package orders;
 import java.util.Objects;
 
 public class PaymentMethod {
-    private String paymentMethodId;
+    private String id;
     private String paymentMethod;
 
-    public PaymentMethod(final String paymentMethodId, final String paymentMethod) {
-        this.paymentMethodId = paymentMethodId;
+    public PaymentMethod(final String id, final String paymentMethod) {
+        this.id = id;
         this.paymentMethod = paymentMethod;
     }
-     public  PaymentMethod(){}
 
-    public String getPaymentMethodId() {
-        return paymentMethodId;
+    public PaymentMethod() {
     }
 
-    public void setPaymentMethodId(final String paymentMethodId) {
-        this.paymentMethodId = paymentMethodId;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(final String id) {
+        this.id = id;
     }
 
     public String getPaymentMethod() {
@@ -33,19 +35,19 @@ public class PaymentMethod {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PaymentMethod that = (PaymentMethod) o;
-        return paymentMethodId.equals(that.paymentMethodId) &&
+        return id.equals(that.id) &&
                 paymentMethod.equals(that.paymentMethod);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(paymentMethodId, paymentMethod);
+        return Objects.hash(id, paymentMethod);
     }
 
     @Override
     public String toString() {
         return "PaymentMethod{" +
-                "payment_method_id='" + paymentMethodId + '\'' +
+                "paymentMethodId='" + id + '\'' +
                 ", paymentMethod='" + paymentMethod + '\'' +
                 '}';
     }

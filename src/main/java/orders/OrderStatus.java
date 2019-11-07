@@ -10,7 +10,9 @@ public class OrderStatus {
         this.orderStatusId = orderStatusId;
         this.orderStatus = orderStatus;
     }
-    public OrderStatus(){}
+
+    public OrderStatus() {
+    }
 
     public String getOrderStatusId() {
         return orderStatusId;

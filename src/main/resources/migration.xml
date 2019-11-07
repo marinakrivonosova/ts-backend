@@ -57,4 +57,123 @@
             </column>
         </createTable>
     </changeSet>
+
+    <changeSet id="order-entity-schema" author="Marina Krivonosova">
+        <createTable tableName="users">
+            <column name="id" type="varchar(32)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="firstname" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastname" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birthdate" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="payment_methods">
+            <column name="id" type="varchar(32)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="payment_method" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="payment_statuses">
+            <column name="id" type="varchar(32)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="payment_status" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="delivery_methods">
+            <column name="id" type="varchar(32)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="delivery_method" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="order_statuses">
+            <column name="id" type="varchar(32)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_status" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="orders">
+            <column name="id" type="varchar(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="varchar(32)">
+                <constraints nullable="false" foreignKeyName="orders_user_id_fk"
+                             referencedTableName="users" referencedColumnNames="id"/>
+            </column>
+            <column name="address" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_method_id" type="varchar(32)">
+                <constraints nullable="false" foreignKeyName="orders_payment_method_fk"
+                             referencedTableName="payment_methods" referencedColumnNames="id"/>
+            </column>
+            <column name="payment_status_id" type="varchar(32)">
+                <constraints nullable="false" foreignKeyName="orders_payment_status_fk"
+                             referencedTableName="payment_statuses" referencedColumnNames="id"/>
+            </column>
+            <column name="delivery_method_id" type="varchar(32)">
+                <constraints nullable="false" foreignKeyName="orders_delivery_method_fk"
+                             referencedTableName="delivery_methods" referencedColumnNames="id"/>
+            </column>
+            <column name="order_status_id" type="varchar(32)">
+                <constraints nullable="false" foreignKeyName="orders_status_fk"
+                             referencedTableName="order_statuses" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+        <createTable tableName="order_comments">
+            <column name="id" type="varchar(32)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="varchar(32)">
+                <constraints nullable="false" foreignKeyName="order_comments_order_id_fk"
+                             referencedTableName="orders" referencedColumnNames="id"/>
+            </column>
+            <column name="comment" type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="line_items">
+            <column name="id" type="varchar(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="varchar(36)">
+                <constraints nullable="false" foreignKeyName="line_items_order_id_fk"
+                             referencedTableName="orders" referencedColumnNames="id"/>
+            </column>
+            <column name="product_id" type="varchar(32)">
+                <constraints nullable="false" foreignKeyName="line_items_product_id_fk"
+                             referencedTableName="products" referencedColumnNames="product_id"/>
+            </column>
+            <column name="count" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
