@@ -17,14 +17,14 @@ public class Configuration {
     }
 
     public String getInitialOrderStatusId() {
-        return environment.getProperty("initial.orderStatusId");
+        return environment.getProperty("orders.initial.status.id");
     }
 
     public String getPaidPaymentStatusId() {
-        return environment.getProperty("paid.paymentStatusId");
+        return environment.getProperty("orders.payment.status.id.paid");
     }
 
     public String getNotPaidPaymentStatusId() {
-        return environment.getProperty("notPaid.paymentStatusId");
+        return environment.getProperty("order.payment.status.id.not.paid");
     }
 }
