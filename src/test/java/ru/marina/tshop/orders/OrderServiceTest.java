@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import ru.marina.tshop.orders.orderStatuses.OrderStatusDao;
 import ru.marina.tshop.products.Product;
 import ru.marina.tshop.products.ProductDao;
 import ru.marina.tshop.utils.IdGenerator;
@@ -33,6 +34,7 @@ public class OrderServiceTest {
     private ProductDao productDao;
     private LineItemDao lineItemDao;
     private OrderService orderService;
+    private OrderStatusDao orderStatusDao;
 
     @MockBean
     private OrderDao orderDao = mock(OrderDao.class);
@@ -47,20 +49,20 @@ public class OrderServiceTest {
         productDao = new ProductDao(namedParameterJdbcTemplate);
         orderDao = new OrderDao(namedParameterJdbcTemplate);
         lineItemDao = new LineItemDao(namedParameterJdbcTemplate);
+        orderStatusDao = new OrderStatusDao(namedParameterJdbcTemplate);
         Connection connection = ds.getConnection();
         final Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
         final Liquibase liquibase = new Liquibase("test-migration.xml", new ClassLoaderResourceAccessor(), database);
         liquibase.dropAll();
         liquibase.update("test");
-        orderService = new OrderService(orderDao, new IdGenerator(), lineItemDao, productDao, configuration);
+        orderService = new OrderService(orderDao, new IdGenerator(), lineItemDao, productDao, configuration, orderStatusDao);
 
-        when(configuration.getInitialOrderStatusId()).thenReturn("osId1");
+        when(configuration.getInitialOrderStatus()).thenReturn("created");
         when(configuration.getNotPaidPaymentStatusId()).thenReturn("psId2");
         productDao.addProduct(new Product("prId1", "tv", "full hd", new BigDecimal("10000.00"), 2, 1, 100, "ctId1"));
         productDao.addProduct(new Product("prId2", "tv", "full hd", new BigDecimal("12000.00"), 3, 1, 50, "ctId1"));
         productDao.addProduct(new Product("prId3", "chair", "wooden", new BigDecimal("1000.00"), 1, 1, 20, "ctId2"));
     }
-
 
     @Test
     void addOrder() {

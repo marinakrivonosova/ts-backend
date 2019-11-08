@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.marina.tshop.orders.orderStatuses.OrderStatusDao;
 import ru.marina.tshop.products.Product;
 import ru.marina.tshop.products.ProductDao;
 import ru.marina.tshop.utils.IdGenerator;
@@ -20,14 +21,16 @@ public class OrderService {
     private final LineItemDao lineItemDao;
     private final ProductDao productDao;
     private final Configuration configuration;
+    private final OrderStatusDao orderStatusDao;
 
     @Autowired
-    public OrderService(final OrderDao orderDao, final IdGenerator idGenerator, final LineItemDao lineItemDao, final ProductDao productDao, final Configuration configuration) {
+    public OrderService(final OrderDao orderDao, final IdGenerator idGenerator, final LineItemDao lineItemDao, final ProductDao productDao, final Configuration configuration, final OrderStatusDao orderStatusDao) {
         this.orderDao = orderDao;
         this.idGenerator = idGenerator;
         this.lineItemDao = lineItemDao;
         this.productDao = productDao;
         this.configuration = configuration;
+        this.orderStatusDao = orderStatusDao;
     }
 
     public String addOrder(final String userId, final List<CreateLineItem> createLineItemList, final String address, final String deliveryMethodId, final String paymentMethodId) {
@@ -39,7 +42,7 @@ public class OrderService {
                 orderId,
                 userId,
                 address,
-                configuration.getInitialOrderStatusId(),
+                orderStatusDao.getOrderStatusId(configuration.getInitialOrderStatus()),
                 deliveryMethodId,
                 paymentMethodId,
                 configuration.getNotPaidPaymentStatusId()));
