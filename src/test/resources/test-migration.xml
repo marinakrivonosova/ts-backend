@@ -47,11 +47,19 @@
         </insert>
         <insert tableName="order_statuses">
             <column name="id">osId1</column>
-            <column name="order_status">completed</column>
+            <column name="order_status">created</column>
         </insert>
         <insert tableName="order_statuses">
             <column name="id">osId2</column>
             <column name="order_status">active</column>
+        </insert>
+        <insert tableName="order_statuses">
+            <column name="id">osId3</column>
+            <column name="order_status">completed</column>
+        </insert>
+        <insert tableName="order_statuses">
+            <column name="id">osId4</column>
+            <column name="order_status">canceled</column>
         </insert>
         <insert tableName="users">
             <column name="id">uId</column>

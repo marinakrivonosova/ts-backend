@@ -1,25 +1,25 @@
-package ru.marina.tshop.orders;
+package ru.marina.tshop.orders.orderstatuses;
 
 import java.util.Objects;
 
 public class OrderStatus {
-    private String orderStatusId;
+    private String id;
     private String orderStatus;
 
-    public OrderStatus(final String orderStatusId, final String orderStatus) {
-        this.orderStatusId = orderStatusId;
+    public OrderStatus(final String id, final String orderStatus) {
+        this.id = id;
         this.orderStatus = orderStatus;
     }
 
     public OrderStatus() {
     }
 
-    public String getOrderStatusId() {
-        return orderStatusId;
+    public String getId() {
+        return id;
     }
 
-    public void setOrderStatusId(final String orderStatusId) {
-        this.orderStatusId = orderStatusId;
+    public void setId(final String id) {
+        this.id = id;
     }
 
     public String getOrderStatus() {
@@ -35,19 +35,19 @@ public class OrderStatus {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderStatus that = (OrderStatus) o;
-        return orderStatusId.equals(that.orderStatusId) &&
+        return id.equals(that.id) &&
                 orderStatus.equals(that.orderStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderStatusId, orderStatus);
+        return Objects.hash(id, orderStatus);
     }
 
     @Override
     public String toString() {
         return "OrderStatus{" +
-                "orderStatusId='" + orderStatusId + '\'' +
+                "orderStatusId='" + id + '\'' +
                 ", orderStatus='" + orderStatus + '\'' +
                 '}';
     }

@@ -16,8 +16,8 @@ public class Configuration {
         this.environment = environment;
     }
 
-    public String getInitialOrderStatusId() {
-        return environment.getProperty("orders.initial.status.id");
+    public String getInitialOrderStatus() {
+        return environment.getProperty("orders.initial.status");
     }
 
     public String getPaidPaymentStatusId() {
