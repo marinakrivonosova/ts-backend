@@ -1,4 +1,4 @@
-package ru.marina.tshop.orders.orderStatuses;
+package ru.marina.tshop.orders.orderstatuses;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

@@ -1,4 +1,4 @@
-package ru.marina.tshop.orders.orderStatuses;
+package ru.marina.tshop.orders.orderstatuses;
 
 import liquibase.Liquibase;
 import liquibase.database.Database;
