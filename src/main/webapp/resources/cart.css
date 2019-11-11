@@ -1,0 +1,18 @@
+.card-title {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.card-subtitle.mb-2.text-muted {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.btn.btn-primary {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#table-row {
+	padding: 20px;
+}
