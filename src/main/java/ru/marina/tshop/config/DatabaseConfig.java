@@ -23,9 +23,9 @@ public class DatabaseConfig {
                 .setType(EmbeddedDatabaseType.H2)
                 .build();
 
-        Connection connection = db.getConnection();
+        final Connection connection = db.getConnection();
         final Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
-        final Liquibase liquibase = new Liquibase("migration.xml", new ClassLoaderResourceAccessor(), database);
+        final Liquibase liquibase = new Liquibase("sample.xml", new ClassLoaderResourceAccessor(), database);
         liquibase.dropAll();
         liquibase.update("prod");
 
