@@ -14,6 +14,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+
 @Configuration
 public class DatabaseConfig {
     @Bean
@@ -23,18 +24,18 @@ public class DatabaseConfig {
                 .setType(EmbeddedDatabaseType.H2)
                 .build();
 
-        final Connection connection = db.getConnection();
-        final Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
-        final Liquibase liquibase = new Liquibase("sample.xml", new ClassLoaderResourceAccessor(), database);
-        liquibase.dropAll();
-        liquibase.update("prod");
+        try (final Connection connection = db.getConnection()) {
+            final Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
+            final Liquibase liquibase = new Liquibase("sample.xml", new ClassLoaderResourceAccessor(), database);
+            liquibase.dropAll();
+            liquibase.update("prod");
+        }
 
         return db;
     }
 
     @Bean
-    public NamedParameterJdbcTemplate namedParameterJdbcTemplate() throws Exception {
-        return new NamedParameterJdbcTemplate(dataSource());
+    public NamedParameterJdbcTemplate namedParameterJdbcTemplate(final DataSource dataSource) {
+        return new NamedParameterJdbcTemplate(dataSource);
     }
-
 }

@@ -26,7 +26,7 @@ public class OrderDaoTest {
         ds.setURL("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
         final NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(ds);
         orderDao = new OrderDao(namedParameterJdbcTemplate);
-        Connection connection = ds.getConnection();
+        final Connection connection = ds.getConnection();
         final Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
         final Liquibase liquibase = new Liquibase("test-migration.xml", new ClassLoaderResourceAccessor(), database);
         liquibase.dropAll();

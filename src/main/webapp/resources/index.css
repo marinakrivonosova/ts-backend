@@ -1,3 +1,21 @@
-.hidden-table {
-display: none !important;
+.products {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.card {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.card {
+	border: none;
+}
+
+.pagination {
+	margin-top: 1.5em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
