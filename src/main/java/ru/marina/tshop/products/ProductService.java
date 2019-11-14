@@ -18,9 +18,14 @@ public class ProductService {
     }
 
     public List<Product> filterProducts(final String title, final long offset, final int pageSize) {
-        return productDao.filterProducts(title,offset, pageSize);
+        return productDao.filterProducts(title, offset, pageSize);
     }
-    public Product getProduct(final String productId){
+
+    public Product getProduct(final String productId) {
         return productDao.getProduct(productId);
+    }
+
+    public int getProductCount(final String title) {
+        return productDao.getProductCount(title);
     }
 }
