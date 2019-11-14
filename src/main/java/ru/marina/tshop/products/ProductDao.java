@@ -20,18 +20,18 @@ public class ProductDao {
     }
 
     public int getProductCount(final String title) {
-        final String query = "SELECT COUNT(*) FROM products WHERE name = :name";
+        final String query = "SELECT COUNT(*) FROM products WHERE lower(name) LIKE :name";
         final SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
-                .addValue("name", title);
+                .addValue("name", "%" + title.toLowerCase() + "%");
         final Integer result = namedParameterJdbcTemplate.queryForObject(query, sqlParameterSource, Integer.class);
         return result == null ? 0 : result;
     }
 
     public List<Product> filterProducts(final String title, final long offset, final int limit) {
-        final String query = "SELECT * FROM products WHERE name = :name" +
+        final String query = "SELECT * FROM products WHERE lower(name) LIKE :name" +
                 " LIMIT :limit OFFSET :offset";
         final SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
-                .addValue("name", title)
+                .addValue("name", "%" + title.toLowerCase() + "%")
                 .addValue("offset", offset)
                 .addValue("limit", limit);
         return namedParameterJdbcTemplate.query(query, sqlParameterSource, BeanPropertyRowMapper.newInstance(Product.class));

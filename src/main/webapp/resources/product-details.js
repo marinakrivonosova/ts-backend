@@ -1,20 +1,41 @@
 $(document).ready(function() {
     console.log("loaded");
 
-    var source = $("#detailed-product-template").html();
-    var template = Handlebars.compile(source);
+    const template = Handlebars.compile($("#detailed-product-template").html());
 
-    var productId = new URLSearchParams(location.search).get("product-id")
+    const keyStorage = "my-cart";
 
-    $.get(`http://localhost:8080/app/products/${productId}`, function(data, status, jqXHR) {
-        var context = {
+    function addToCart(product) {
+        let newCart = JSON.parse(localStorage.getItem(keyStorage)) || {};
+
+        let productCounter = newCart[product.productId];
+
+        if (productCounter) {
+            productCounter.count++;
+        } else {
+            productCounter = {
+                count: 1,
+                product: product
+            };
+        }
+        newCart[product.productId] = productCounter;
+        localStorage.setItem(keyStorage, JSON.stringify(newCart));
+    }
+
+    let productId = new URLSearchParams(location.search).get("product-id");
+
+    $.get(`/app/products/${productId}`, function(data, status, jqXHR) {
+        let context = {
             title: data.name,
             price: data.price,
             description: data.description,
             weight: data.weight,
             volume: data.volume
-        }
-        var html = template(context)
-        $("#product-container").append(html)
-    })
-})
+        };
+        let html = template(context);
+        $("#product-container").append(html);
+        $("#add-to-card-btn").click(function(event) {
+            addToCart(data);
+        });
+    });
+});

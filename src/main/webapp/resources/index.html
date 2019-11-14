@@ -23,10 +23,13 @@
             <div class="card-body">
                 <h5 class="card-title"><a class="nav-link active" href="product-details.html?product-id={{productId}}">{{name}}</a>
                 </h5>
-                <p class="card-text">{{price}}</p>
+                <p class="card-text"><span>$</span>{{price}}</p>
                 <a href="#" class="btn btn-primary add-to-cart">Add to cart</a>
             </div>
         </div>
+    </script>
+    <script id="dropdown-category-template" type="text/x-handlebars-template">
+        <a class="dropdown-item" href="#">{{name}}</a>
     </script>
 </head>
 <body>
@@ -49,10 +52,10 @@
                     <a class="nav-link" href="#">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">My orders</a>
+                    <a class="nav-link" href="my-orders.html">My orders</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Cart</a>
+                    <a class="nav-link" href="cart.html">Cart</a>
                 </li>
             </ul>
         </div>
@@ -66,12 +69,9 @@
                             aria-haspopup="true" aria-expanded="false">Categories
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Category 1</a>
-                        <a class="dropdown-item" href="#">Another category</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 </div>
-                <input type="text" class="form-control" placeholder="What are you looking for?"
+                <input id="search-input" type="text" class="form-control" placeholder="What are you looking for?"
                        aria-label="What are you looking for?" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="button" id="search-button">search</button>

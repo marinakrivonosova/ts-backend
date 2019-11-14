@@ -28,6 +28,7 @@ class ProductControllerTest {
 
     @Test
     void filterProducts() throws Exception {
+        when(productService.getProductCount("tv")).thenReturn(9);
         when(productService.filterProducts("tv", 1, 2)).thenReturn(Collections.singletonList(
                 new Product("prId1", "tv", "full hd", new BigDecimal("10000"), 2, 1, 100, "ctId1")));
         //TODO why here "1000" is not OK
@@ -39,14 +40,15 @@ class ProductControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[?(@.productId=='prId1')].productId").value("prId1"))
-                .andExpect(jsonPath("$[?(@.productId=='prId1')].name").value("tv"))
-                .andExpect(jsonPath("$[?(@.productId=='prId1')].description").value("full hd"))
-                .andExpect(jsonPath("$[?(@.productId=='prId1')].price").value(10000))
-                .andExpect(jsonPath("$[?(@.productId=='prId1')].weight").value(2))
-                .andExpect(jsonPath("$[?(@.productId=='prId1')].volume").value(1))
-                .andExpect(jsonPath("$[?(@.productId=='prId1')].count").value(100))
-                .andExpect(jsonPath("$[?(@.productId=='prId1')].categoryId").value("ctId1"));
+                .andExpect(jsonPath("$.products[?(@.productId=='prId1')].productId").value("prId1"))
+                .andExpect(jsonPath("$.products[?(@.productId=='prId1')].name").value("tv"))
+                .andExpect(jsonPath("$.products[?(@.productId=='prId1')].description").value("full hd"))
+                .andExpect(jsonPath("$.products[?(@.productId=='prId1')].price").value(10000))
+                .andExpect(jsonPath("$.products[?(@.productId=='prId1')].weight").value(2))
+                .andExpect(jsonPath("$.products[?(@.productId=='prId1')].volume").value(1))
+                .andExpect(jsonPath("$.products[?(@.productId=='prId1')].count").value(100))
+                .andExpect(jsonPath("$.products[?(@.productId=='prId1')].categoryId").value("ctId1"))
+                .andExpect(jsonPath("$.overallSuitableProducts").value(9));
     }
 
     @Test

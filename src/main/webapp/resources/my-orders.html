@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="general.css">
+    <link rel="stylesheet" href="my-orders.css">
+
+    <script src="jquery-3.4.1.js"></script>
+    <script src="handlebars-v4.4.3.js"></script>
+    <script src="my-orders.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script id="order-template" type="text/x-handlebars-template">
+        <tr>
+<!--            just to check, will finish template later-->
+            <td class="title">{{address}}</td>
+        </tr>
+    </script>
+    <script id="dropdown-status-template" type="text/x-handlebars-template">
+        <option value="{{id}}">{{orderStatus}}</option>
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <nav class="navbar navbar-dark bg-primary">
+                <h2>T-shop</h2>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="my-orders.html">My orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="cart.html">Cart</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <select id="order-status" class="form-control">
+                <option selected>Select order status:</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="row" id="table-row">
+
+        <div class="col">
+            <h4 id="orders-list"></h4>
+            <table class="table table-borderless">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody id="order-list">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

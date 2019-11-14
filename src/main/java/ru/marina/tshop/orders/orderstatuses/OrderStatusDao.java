@@ -7,6 +7,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
+import ru.marina.tshop.orders.PaymentMethod;
+
+import java.util.List;
 
 @Repository
 public class OrderStatusDao {
@@ -37,5 +40,10 @@ public class OrderStatusDao {
                 .addValue("id", orderStatus.getId())
                 .addValue("orderStatus", orderStatus.getOrderStatus());
         namedParameterJdbcTemplate.update(query, sqlParameterSource, new GeneratedKeyHolder());
+    }
+
+    public List<OrderStatus> listOrderStatuses() {
+        final String query = "SELECT * FROM order_statuses";
+        return namedParameterJdbcTemplate.query(query, BeanPropertyRowMapper.newInstance(OrderStatus.class ));
     }
 }

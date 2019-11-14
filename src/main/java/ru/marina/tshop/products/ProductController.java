@@ -31,9 +31,4 @@ public class ProductController {
     public Product getProduct(@PathVariable("productId") final String productId) {
         return productService.getProduct(productId);
     }
-
-    class FilterProductResponse {
-        public List<Product> products;
-        public int overallSuitableProducts;
-    }
 }

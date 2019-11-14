@@ -7,6 +7,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import ru.marina.tshop.orders.orderstatuses.OrderStatus;
 
 import java.io.InputStream;
 import java.util.Arrays;
@@ -91,5 +92,24 @@ public class OrderControllerTest {
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
         }
+    }
+
+    @Test
+    void getOrderStatuses() throws Exception {
+        when(orderService.getOrderStatuses()).thenReturn(Arrays.asList(new OrderStatus("osId1", "created"),
+                new OrderStatus("osId2", "active"),
+                new OrderStatus("osId3", "completed"),
+                new OrderStatus("osId4", "canceled")));
+
+        mockMvc.perform(get("/order-statuses")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$[0]").value(new OrderStatus("osId1",
+                        "created")))
+                .andExpect(jsonPath("$[1]").value(new OrderStatus("osId2", "active")))
+                .andExpect(jsonPath("$[2]").value(new OrderStatus("osId3", "completed")))
+                .andExpect(jsonPath("$[3]").value(new OrderStatus("osId4", "canceled")));
     }
 }

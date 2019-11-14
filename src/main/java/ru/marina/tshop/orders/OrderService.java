@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.marina.tshop.orders.orderstatuses.OrderStatus;
 import ru.marina.tshop.orders.orderstatuses.OrderStatusDao;
 import ru.marina.tshop.products.Product;
 import ru.marina.tshop.products.ProductDao;
@@ -70,6 +71,10 @@ public class OrderService {
 
     public List<PaymentMethod> getPaymentMethods() {
         return orderDao.getPaymentMethods();
+    }
+
+    public List<OrderStatus> getOrderStatuses() {
+        return orderStatusDao.listOrderStatuses();
     }
 
     public List<Order> listOrdersByStatus(final String orderStatusId) {
