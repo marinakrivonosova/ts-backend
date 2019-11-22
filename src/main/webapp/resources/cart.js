@@ -7,10 +7,12 @@ $(document).ready(function () {
 
     if (cart) {
         $("#cart-empty-badge").hide();
+        $("#order-succeeded").hide();
 
     } else {
         $("#product-table").hide();
         $("#additional-info").hide();
+        $("#order-succeeded").hide();
     }
 
     let totalPrice = 0;
@@ -31,9 +33,9 @@ $(document).ready(function () {
             count: value.count
         };
     });
-    $("#total-price").append(`<span>$</span>${totalPrice}`);
+    $("#total-price").append($('<span />').html(`$${totalPrice}`));
 
-    $.get("/app/payment-methods", function (paymentMethods, status, jqXHR) {
+    $.get(apiPath + "/payment-methods", function (paymentMethods, status, jqXHR) {
         $.each(paymentMethods, function (index, method) {
             const paymentMethodHtml = $(paymentMethodTemplate(method));
             $("#payment-method").append(paymentMethodHtml);
@@ -53,12 +55,15 @@ $(document).ready(function () {
         };
         $.ajax({
             type: "POST",
-            url: "/app/orders",
+            url: apiPath + "/orders",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             success: function (response, status, jqXHR) {
-                console.log(response);
+                $("#order-succeeded").show();
                 localStorage.clear();
+                $("#product-table").hide();
+                $("#additional-info").hide();
+
             }
         });
     });

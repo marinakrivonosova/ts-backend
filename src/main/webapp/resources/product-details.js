@@ -24,7 +24,7 @@ $(document).ready(function() {
 
     let productId = new URLSearchParams(location.search).get("product-id");
 
-    $.get(`/app/products/${productId}`, function(data, status, jqXHR) {
+    $.get(`globalContext + /products/${productId}`, function(data, status, jqXHR) {
         let context = {
             title: data.name,
             price: data.price,

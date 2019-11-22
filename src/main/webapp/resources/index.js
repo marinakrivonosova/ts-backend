@@ -33,7 +33,7 @@ $(document).ready(function () {
             limit: limit
         };
 
-        $.get("/app/products", data, function (data, status, jqXHR) {
+        $.get(apiPath + "/products", data, function (data, status, jqXHR) {
             $("#products").children().remove();
 
             $.each(data.products, function (index, product) {
@@ -56,7 +56,7 @@ $(document).ready(function () {
                     </li>
                     `);
                 } else {
-                    pageLink = $(`<li class="page-item"><a class="page-link" href="#">${page}</a></li>`);
+                    pageLink = $('<li />').addClass('page-item').append($('<a />').addClass('page-link').html(`${page}`));
                     pageLink.click(function (event) {
                         showPage(page);
                     });

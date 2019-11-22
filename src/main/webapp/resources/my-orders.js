@@ -13,7 +13,7 @@ $(document).ready(function () {
         let request = {
             status: $(this).val()
         };
-        $.get("/app/orders", request, function (orders, status, jqXHR) {
+        $.get(apiPath + "/orders", request, function (orders, status, jqXHR) {
             $("#order-list").children().remove();
             $.each(orders, function (index, order) {
                 const orderTemplateHtml = $(orderTemplate(order));
