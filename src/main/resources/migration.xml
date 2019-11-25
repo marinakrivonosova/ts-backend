@@ -145,10 +145,10 @@
             </column>
         </createTable>
         <createTable tableName="order_comments">
-            <column name="id" type="varchar(32)">
+            <column name="id" type="varchar(36)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="order_id" type="varchar(32)">
+            <column name="order_id" type="varchar(36)">
                 <constraints nullable="false" foreignKeyName="order_comments_order_id_fk"
                              referencedTableName="orders" referencedColumnNames="id"/>
             </column>
