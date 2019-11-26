@@ -1,4 +1,4 @@
-package ru.marina.tshop.orders.deliverymethods;
+package ru.marina.tshop.orders.delivery;
 
 import java.util.Objects;
 

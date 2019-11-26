@@ -1,4 +1,4 @@
-package ru.marina.tshop.orders.deliverymethods;
+package ru.marina.tshop.orders.delivery;
 
 import liquibase.Liquibase;
 import liquibase.database.Database;
@@ -9,7 +9,6 @@ import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import ru.marina.tshop.orders.orderstatuses.OrderStatusDao;
 
 import java.sql.Connection;
 import java.util.Arrays;
@@ -26,11 +25,12 @@ public class DeliveryMethodDaoTest {
         ds.setURL("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
         final NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(ds);
         deliveryMethodDao = new DeliveryMethodDao(namedParameterJdbcTemplate);
-        Connection connection = ds.getConnection();
-        final Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
-        final Liquibase liquibase = new Liquibase("test-migration.xml", new ClassLoaderResourceAccessor(), database);
-        liquibase.dropAll();
-        liquibase.update("test");
+        try (final Connection connection = ds.getConnection()) {
+            final Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
+            final Liquibase liquibase = new Liquibase("test-migration.xml", new ClassLoaderResourceAccessor(), database);
+            liquibase.dropAll();
+            liquibase.update("test");
+        }
     }
 
     @Test
@@ -40,14 +40,8 @@ public class DeliveryMethodDaoTest {
     }
 
     @Test
-    void getDeliveryMethodById() {
-        assertEquals("self-pickup", deliveryMethodDao.getDeliveryMethod("dmId1"));
-        assertEquals("post", deliveryMethodDao.getDeliveryMethod("dmId2"));
-    }
-
-    @Test
-    void getDeliveryMethodId() {
-        assertEquals("dmId1", deliveryMethodDao.getDeliveryMethodId("self-pickup"));
-        assertEquals("dmId2", deliveryMethodDao.getDeliveryMethodId("post"));
+    void getDeliveryMethodBy() {
+        assertEquals("self-pickup", deliveryMethodDao.getDeliveryMethod("dmId1").getDeliveryMethod());
+        assertEquals("post", deliveryMethodDao.getDeliveryMethod("dmId2").getDeliveryMethod());
     }
 }
