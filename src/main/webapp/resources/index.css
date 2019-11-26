@@ -1,0 +1,22 @@
+.products {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.card {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+}
+.card-body {
+    width: 100%;
+}
+
+.pagination {
+	margin-top: 1.5em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

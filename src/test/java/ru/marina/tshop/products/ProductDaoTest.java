@@ -37,11 +37,15 @@ class ProductDaoTest {
         productDao.addProduct(new Product("prId1", "tv", "full hd", new BigDecimal("10000"), 2, 1, 100, "ctId1"));
         productDao.addProduct(new Product("prId2", "tv", "full hd", new BigDecimal("12000"), 3, 1, 50, "ctId1"));
         productDao.addProduct(new Product("prId3", "tv", "full hd", new BigDecimal("8000"), 1, 1, 20, "ctId1"));
-        productDao.addProduct(new Product("prId4", "armchair", "very soft", new BigDecimal("2000"), 5, 3, 10, "ctId2"));
+        productDao.addProduct(new Product("prId4", "Best Armchair", "very soft", new BigDecimal("2000"), 5, 3, 10, "ctId2"));
 
         final List<Product> tv = productDao.filterProducts("tv", 1, 1);
         assertEquals(1, tv.size());
         assertEquals("tv", tv.get(0).getName());
+
+        assertEquals(1, productDao.filterProducts("cha", 0, 20).size());
+        assertEquals(1, productDao.filterProducts("arm", 0, 20).size());
+        assertEquals(1, productDao.filterProducts("BEST", 0, 20).size());
     }
 
     @Test

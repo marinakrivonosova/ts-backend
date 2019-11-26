@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <include file="migration.xml"/>
+    <changeSet id="product-related-data-import" author="Marina Krivonosova">
+        <insert tableName="categories">
+            <column name="category_id">ctId1</column>
+            <column name="name">category1</column>
+            <column name="description">no description</column>
+        </insert>
+
+        <insert tableName="categories">
+            <column name="category_id">ctId2</column>
+            <column name="name">other category</column>
+            <column name="description">something</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId1</column>
+            <column name="name">tv</column>
+            <column name="description">full hd</column>
+            <column name="price">10000.00</column>
+            <column name="weight">1</column>
+            <column name="volume">3</column>
+            <column name="count">140</column>
+            <column name="category_id">ctId1</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId2</column>
+            <column name="name">Apple AirPods with Charging Case</column>
+            <column name="description">Powered by the Apple H1 headphone chip, AirPods deliver a faster and more stable
+                wireless connection to your devices — up to 2x faster when switching between active devices,3 and a 1.5x
+                faster connection time for phone calls.4 The H1 chip also drives voice-enabled Siri access and delivers
+                up to 30 percent lower gaming latency.5 So whether you’re playing games, listening to music, or enjoying
+                podcasts, you’ll experience higher-quality sound.
+            </column>
+            <column name="price">139.00</column>
+            <column name="weight">40</column>
+            <column name="volume">3</column>
+            <column name="count">500</column>
+            <column name="category_id">ctId1</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId3</column>
+            <column name="name">Apple iPhone 11 Pro 256 GB</column>
+            <column name="description">A transformative triple‑camera system that adds tons of capability without
+                complexity. An unprecedented leap in battery life. And a mind‑blowing chip that doubles down on machine
+                learning and pushes the boundaries of what a smartphone can do. Welcome to the first iPhone powerful
+                enough to be called Pro.
+            </column>
+            <column name="price">1149.00</column>
+            <column name="weight">188</column>
+            <column name="volume">30</column>
+            <column name="count">450</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId4</column>
+            <column name="name">Apple iPhone 11 Pro 64 GB</column>
+            <column name="description">A transformative triple‑camera system that adds tons of capability without
+                complexity. An unprecedented leap in battery life. And a mind‑blowing chip that doubles down on machine
+                learning and pushes the boundaries of what a smartphone can do. Welcome to the first iPhone powerful
+                enough to be called Pro.
+            </column>
+            <column name="price">999.00</column>
+            <column name="weight">188</column>
+            <column name="volume">30</column>
+            <column name="count">450</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId5</column>
+            <column name="name">Apple iPhone 11 Pro 512 GB</column>
+            <column name="description">A transformative triple‑camera system that adds tons of capability without
+                complexity. An unprecedented leap in battery life. And a mind‑blowing chip that doubles down on machine
+                learning and pushes the boundaries of what a smartphone can do. Welcome to the first iPhone powerful
+                enough to be called Pro.
+            </column>
+            <column name="price">1349.00</column>
+            <column name="weight">400</column>
+            <column name="volume">30</column>
+            <column name="count">450</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId6</column>
+            <column name="name">Apple iPhone 8 Plus 64 GB</column>
+            <column name="description">Retina HD display
+                5.5-inch (diagonal) widescreen LCD Multi-Touch display with IPS technology
+                1920-by-1080-pixel resolution at 401 ppi
+                Fingerprint-resistant oleophobic coating
+            </column>
+            <column name="price">549.00</column>
+            <column name="weight">148</column>
+            <column name="volume">30</column>
+            <column name="count">450</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId7</column>
+            <column name="name">Apple iPhone 8 Plus 128 GB</column>
+            <column name="description">True Tone Retina HD display
+                5.5-inch (diagonal) widescreen LCD Multi-Touch display with IPS technology
+                1920-by-1080-pixel resolution at 401 ppi
+                Fingerprint-resistant oleophobic coating
+            </column>
+            <column name="price">559.00</column>
+            <column name="weight">148</column>
+            <column name="volume">30</column>
+            <column name="count">450</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId8</column>
+            <column name="name">Apple iPhone 11 64 GB</column>
+            <column name="description">Both iPhone 11 and iPhone 11 Pro have the fastest chip ever in a smartphone. A13
+                Bionic is so powerful, everything you do is fast and fluid. It also works in the most power‑efficient
+                way possible, so your battery lasts longer. In fact, A13 Bionic is so advanced, it’s years ahead of the
+                pack.
+            </column>
+            <column name="price">699.00</column>
+            <column name="weight">150</column>
+            <column name="volume">30</column>
+            <column name="count">450</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId9</column>
+            <column name="name">Apple iPhone 11 128 GB</column>
+            <column name="description">iPhone 11 shoots beautifully sharp 4K video at 60 fps across all its cameras. The
+                Ultra Wide camera captures four times more scene, so it’s perfect for action shots like your dog
+                catching a frisbee. If you’re recording a performance — say, your kid’s piano recital — when you zoom
+                in, the audio zooms too. And now you can edit videos as easily as you do photos.
+            </column>
+            <column name="price">749.00</column>
+            <column name="weight">150</column>
+            <column name="volume">30</column>
+            <column name="count">450</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId10</column>
+            <column name="name">Apple iPhone 11 256 GB</column>
+            <column name="description">Every feature in iPhone is designed to protect your personal information. Face ID
+                doesn’t store or share your photo. When you send an iMessage or make a FaceTime call, your data is
+                encrypted. And Maps tells you where you’re going without sharing where you’ve been.
+            </column>
+            <column name="price">849.00</column>
+            <column name="weight">150</column>
+            <column name="volume">30</column>
+            <column name="count">450</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId11</column>
+            <column name="name">Apple iPad Pro 64 GB</column>
+            <column name="description">It’s all screen and all powerful. Completely redesigned and packed with our most
+                advanced technology, it will make you rethink what iPad is capable of.
+            </column>
+            <column name="price">799.00</column>
+            <column name="weight">400</column>
+            <column name="volume">30</column>
+            <column name="count">450</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId12</column>
+            <column name="name">Apple iPad Pro 256 GB</column>
+            <column name="description">It’s all screen and all powerful. Completely redesigned and packed with our most
+                advanced technology, it will make you rethink what iPad is capable of. A12X Bionic delivers 2x faster
+                graphics.2 Which makes iPad Pro the perfect machine for augmented reality and a great way to play
+                immersive games.
+            </column>
+            <column name="price">949.00</column>
+            <column name="weight">400</column>
+            <column name="volume">30</column>
+            <column name="count">450</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId13</column>
+            <column name="name">Apple iPad Pro 512 GB</column>
+            <column name="description">iPad Pro has two great cameras equipped with Smart HDR. A 12MP camera for
+                stunning photos, 4K video, document scanning, and AR experiences. And a TrueDepth camera perfect for
+                Portrait selfies, FaceTime, Animoji, and Memoji.
+            </column>
+            <column name="price">1149.00</column>
+            <column name="weight">400</column>
+            <column name="volume">30</column>
+            <column name="count">450</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId14</column>
+            <column name="name">Apple iPad Pro 1 TB</column>
+            <column name="description">It’s more portable than ever. Connect on the go with fast Wi-Fi and Gigabit-class
+                LTE. And with up to 10 hours of battery life.
+            </column>
+            <column name="price">1349.00</column>
+            <column name="weight">400</column>
+            <column name="volume">30</column>
+            <column name="count">450</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId15</column>
+            <column name="name">Apple iPad Air 64 GB</column>
+            <column name="description">iPad Air brings more of our most powerful technologies to
+                more people than ever. The A12 Bionic chip with Neural Engine.
+                A 10.5‑inch Retina display with True Tone. Support for Apple Pencil
+                and the Smart Keyboard. And at just one pound and 6.1 mm thin,
+                carrying all that power is effortless.
+            </column>
+            <column name="price">499.00</column>
+            <column name="weight">280</column>
+            <column name="volume">30</column>
+            <column name="count">450</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId16</column>
+            <column name="name">Apple iPad Air 256 GB</column>
+            <column name="description">iPad Air features a large 10.5‑inch Retina display, while remaining extremely
+                portable and perfect for getting things done anywhere. It’s thin and light and has advanced wireless
+                connectivity. And with up to 10 hours of battery life, iPad Air can go all day on a single charge.
+            </column>
+            <column name="price">649.00</column>
+            <column name="weight">280</column>
+            <column name="volume">30</column>
+            <column name="count">450</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="order-related-data-import" author="Marina Krivonosova">
+        <insert tableName="payment_methods">
+            <column name="id">pmId1</column>
+            <column name="payment_method">card</column>
+        </insert>
+        <insert tableName="payment_methods">
+            <column name="id">pmId2</column>
+            <column name="payment_method">cash</column>
+        </insert>
+        <insert tableName="payment_methods">
+            <column name="id">pmId3</column>
+            <column name="payment_method">check</column>
+        </insert>
+        <insert tableName="delivery_methods">
+            <column name="id">dmId1</column>
+            <column name="delivery_method">self-pickup</column>
+        </insert>
+        <insert tableName="delivery_methods">
+            <column name="id">dmId2</column>
+            <column name="delivery_method">post</column>
+        </insert>
+        <insert tableName="payment_statuses">
+            <column name="id">psId1</column>
+            <column name="payment_status">paid</column>
+        </insert>
+        <insert tableName="payment_statuses">
+            <column name="id">psId2</column>
+            <column name="payment_status">not paid</column>
+        </insert>
+        <insert tableName="order_statuses">
+            <column name="id">osId1</column>
+            <column name="order_status">created</column>
+        </insert>
+        <insert tableName="order_statuses">
+            <column name="id">osId2</column>
+            <column name="order_status">active</column>
+        </insert>
+        <insert tableName="users">
+            <column name="id">uId</column>
+            <column name="firstname">john</column>
+            <column name="lastname">wick</column>
+            <column name="birthdate">1980-12-17</column>
+            <column name="email">john@email.com</column>
+            <column name="password">passw0rd</column>
+            <column name="phone">89000000000</column>
+        </insert>
+        <insert tableName="users">
+            <column name="id">uId1</column>
+            <column name="firstname">tom</column>
+            <column name="lastname">sawyer</column>
+            <column name="birthdate">1956-04-10</column>
+            <column name="email">tom@email.com</column>
+            <column name="password">password1</column>
+            <column name="phone">89010569024</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

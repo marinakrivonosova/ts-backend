@@ -3,7 +3,6 @@ package ru.marina.tshop.orders;
 import java.util.List;
 
 public class SubmitOrderRequest {
-    private List<String> productIds;
     private String address;
     private String deliveryMethodId;
     private String paymentMethodId;
@@ -13,19 +12,10 @@ public class SubmitOrderRequest {
     }
 
     public SubmitOrderRequest(final List<String> productIds, final String address, final String deliveryMethodId, final String paymentMethodId, final List<CreateLineItem> lineItemList) {
-        this.productIds = productIds;
         this.address = address;
         this.deliveryMethodId = deliveryMethodId;
         this.paymentMethodId = paymentMethodId;
         this.lineItemList = lineItemList;
-    }
-
-    public List<String> getProductIds() {
-        return productIds;
-    }
-
-    public void setProductIds(final List<String> productIds) {
-        this.productIds = productIds;
     }
 
     public String getAddress() {

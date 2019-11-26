@@ -1,0 +1,20 @@
+.pagination.pagination-lg {
+	margin-top: 1.5em; 
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.card-rows{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.card {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.card {
+	border: none;
+}
