@@ -68,11 +68,6 @@ public class OrderService {
         return orderId;
     }
 
-
-    public List<PaymentMethod> getPaymentMethods() {
-        return orderDao.getPaymentMethods();
-    }
-
     public List<OrderStatus> getOrderStatuses() {
         return orderStatusDao.listOrderStatuses();
     }

@@ -40,21 +40,6 @@ public class OrderControllerTest {
     }
 
     @Test
-    public void getPaymentMethodsTest() throws Exception {
-        when(orderService.getPaymentMethods()).thenReturn(Arrays.asList(new PaymentMethod("paymentMethodId1",
-                "cash"), new PaymentMethod("paymentMethodId2", "card")));
-
-        mockMvc.perform(get("/payment-methods")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0]").value(new PaymentMethod("paymentMethodId1",
-                        "cash")))
-                .andExpect(jsonPath("$[1]").value(new PaymentMethod("paymentMethodId2", "card")));
-    }
-
-    @Test
     public void getOrdersByStatusTest() throws Exception {
         when(orderService.listOrdersByStatus("statusId1")).thenReturn(Arrays.asList(
                 new Order("orderId1", "userId1", "Earth", "statusId1",

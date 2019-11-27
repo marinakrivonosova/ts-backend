@@ -33,11 +33,6 @@ public class OrderDao {
         namedParameterJdbcTemplate.update(query, sqlParameterSource, new GeneratedKeyHolder());
     }
 
-    public List<PaymentMethod> getPaymentMethods() {
-        final String query = "SELECT * FROM payment_methods";
-        return namedParameterJdbcTemplate.query(query, BeanPropertyRowMapper.newInstance(PaymentMethod.class));
-    }
-
     public List<Order> listOrdersByStatus(final String orderStatusId) {
         final String query = "SELECT *" +
                 " FROM order_statuses" +
