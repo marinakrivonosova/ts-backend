@@ -1,25 +1,25 @@
-package ru.marina.tshop.orders;
+package ru.marina.tshop.orders.delivery;
 
 import java.util.Objects;
 
 public class DeliveryMethod {
-    private String deliveryMethodId;
+    private String id;
     private String deliveryMethod;
 
-    public DeliveryMethod(final String deliveryMethodId, final String deliveryMethod) {
-        this.deliveryMethodId = deliveryMethodId;
+    public DeliveryMethod(final String id, final String deliveryMethod) {
+        this.id = id;
         this.deliveryMethod = deliveryMethod;
     }
 
     public DeliveryMethod() {
     }
 
-    public String getDeliveryMethodId() {
-        return deliveryMethodId;
+    public String getId() {
+        return id;
     }
 
-    public void setDeliveryMethodId(final String deliveryMethodId) {
-        this.deliveryMethodId = deliveryMethodId;
+    public void setId(final String id) {
+        this.id = id;
     }
 
     public String getDeliveryMethod() {
@@ -35,12 +35,20 @@ public class DeliveryMethod {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DeliveryMethod that = (DeliveryMethod) o;
-        return deliveryMethodId.equals(that.deliveryMethodId) &&
+        return id.equals(that.id) &&
                 deliveryMethod.equals(that.deliveryMethod);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(deliveryMethodId, deliveryMethod);
+        return Objects.hash(id, deliveryMethod);
+    }
+
+    @Override
+    public String toString() {
+        return "DeliveryMethod{" +
+                "deliveryMethodId='" + id + '\'' +
+                ", deliveryMethod='" + deliveryMethod + '\'' +
+                '}';
     }
 }
