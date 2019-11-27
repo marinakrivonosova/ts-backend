@@ -1,4 +1,4 @@
-package ru.marina.tshop.orders;
+package ru.marina.tshop.orders.comments;
 
 import java.util.Objects;
 

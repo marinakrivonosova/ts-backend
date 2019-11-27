@@ -145,7 +145,7 @@
             </column>
         </createTable>
         <createTable tableName="order_comments">
-            <column name="id" type="varchar(32)">
+            <column name="id" type="varchar(36)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="order_id" type="varchar(36)">
