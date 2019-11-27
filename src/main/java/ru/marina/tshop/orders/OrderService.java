@@ -1,5 +1,6 @@
 package ru.marina.tshop.orders;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.marina.tshop.orders.lineitems.LineItem;
 import ru.marina.tshop.orders.lineitems.LineItemDao;
 import org.slf4j.Logger;
@@ -34,6 +35,7 @@ public class OrderService {
         this.orderStatusDao = orderStatusDao;
     }
 
+    @Transactional
     public String addOrder(final String userId, final List<CreateLineItem> createLineItemList, final String address, final String deliveryMethodId, final String paymentMethodId) {
         if (createLineItemList == null || createLineItemList.isEmpty()) {
             throw new IllegalArgumentException("CreateLineItem parameter cannot be null or empty.");
@@ -73,10 +75,12 @@ public class OrderService {
         return orderDao.getPaymentMethods();
     }
 
+    @Transactional(readOnly = true)
     public List<OrderStatus> getOrderStatuses() {
         return orderStatusDao.listOrderStatuses();
     }
 
+    @Transactional(readOnly = true)
     public List<Order> listOrdersByStatus(final String orderStatusId) {
         return orderDao.listOrdersByStatus(orderStatusId);
     }
