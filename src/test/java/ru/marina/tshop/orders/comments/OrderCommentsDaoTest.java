@@ -1,4 +1,4 @@
-package ru.marina.tshop.orders.ordercomments;
+package ru.marina.tshop.orders.comments;
 
 import liquibase.Liquibase;
 import liquibase.database.Database;
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import ru.marina.tshop.orders.Order;
 import ru.marina.tshop.orders.OrderDao;
-import ru.marina.tshop.orders.orderstatuses.OrderStatusDao;
 
 import java.sql.Connection;
 
@@ -38,7 +37,6 @@ public class OrderCommentsDaoTest {
     @Test
     void addOrderComment() {
         orderDao.addOrder(new Order("id", "uId", "address", "osId1", "dmId1", "pmId1", "psId2"));
-
         orderCommentDao.addOrderComment(new OrderComment("ocId1", "id", "there is a comment"));
 
         assertEquals("there is a comment", orderCommentDao.getOrderComment("ocId1").getComment());
