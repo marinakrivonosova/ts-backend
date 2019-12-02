@@ -4,34 +4,34 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class User {
-    private String userId;
+    private String id;
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
     private String email;
-    private String password;
+    private String hashedPassword; // TODO regenerate toString
     private String phone;
 
-    public User(final String userId, final String firstName, final String lastName, final LocalDate birthDate,
-                final String email, final String password, final String phone) {
-        this.userId = userId;
+    public User(final String id, final String firstName, final String lastName, final LocalDate birthDate,
+                final String email, final String hashedPassword, final String phone) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.email = email;
-        this.password = password;
+        this.hashedPassword = hashedPassword;
         this.phone = phone;
     }
 
     public User() {
     }
 
-    public String getUserId() {
-        return userId;
+    public String getId() {
+        return id;
     }
 
-    public void setUserId(final String userId) {
-        this.userId = userId;
+    public void setId(final String id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -66,12 +66,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getHashedPassword() {
+        return hashedPassword;
     }
 
-    public void setPassword(final String password) {
-        this.password = password;
+    public void setHashedPassword(final String hashedPassword) {
+        this.hashedPassword = hashedPassword;
     }
 
     public String getPhone() {
@@ -87,29 +87,29 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return userId.equals(user.userId) &&
+        return id.equals(user.id) &&
                 firstName.equals(user.firstName) &&
                 lastName.equals(user.lastName) &&
                 birthDate.equals(user.birthDate) &&
                 email.equals(user.email) &&
-                password.equals(user.password) &&
+                hashedPassword.equals(user.hashedPassword) &&
                 phone.equals(user.phone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, firstName, lastName, birthDate, email, password, phone);
+        return Objects.hash(id, firstName, lastName, birthDate, email, hashedPassword, phone);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "userId='" + userId + '\'' +
+                "userId='" + id + '\'' +
                 ", name='" + firstName + '\'' +
                 ", surname='" + lastName + '\'' +
                 ", birthDate=" + birthDate +
                 ", email='" + email + '\'' +
-                ", hashedPassword='" + password + '\'' +
+                ", hashedPassword='" + hashedPassword + '\'' +
                 ", phoneNumber='" + phone + '\'' +
                 '}';
     }
