@@ -1,12 +1,12 @@
 package ru.marina.tshop.orders;
 
-import org.springframework.transaction.annotation.Transactional;
-import ru.marina.tshop.orders.lineitems.LineItem;
-import ru.marina.tshop.orders.lineitems.LineItemDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.marina.tshop.orders.lineitems.LineItem;
+import ru.marina.tshop.orders.lineitems.LineItemDao;
 import ru.marina.tshop.orders.orderstatuses.OrderStatus;
 import ru.marina.tshop.orders.orderstatuses.OrderStatusDao;
 import ru.marina.tshop.products.Product;
@@ -70,12 +70,6 @@ public class OrderService {
         return orderId;
     }
 
-
-    public List<PaymentMethod> getPaymentMethods() {
-        return orderDao.getPaymentMethods();
-    }
-
-    @Transactional(readOnly = true)
     public List<OrderStatus> getOrderStatuses() {
         return orderStatusDao.listOrderStatuses();
     }

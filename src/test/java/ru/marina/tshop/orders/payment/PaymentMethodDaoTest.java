@@ -1,4 +1,4 @@
-package ru.marina.tshop.orders.delivery;
+package ru.marina.tshop.orders.payment;
 
 import liquibase.Liquibase;
 import liquibase.database.Database;
@@ -14,17 +14,17 @@ import java.sql.Connection;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DeliveryMethodDaoTest {
-    private DeliveryMethodDao deliveryMethodDao;
+public class PaymentMethodDaoTest {
+    private PaymentMethodDao paymentMethodDao;
 
     @BeforeEach
     void setupDB() throws Exception {
         final JdbcDataSource ds = new JdbcDataSource();
         ds.setURL("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
         final NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(ds);
-        deliveryMethodDao = new DeliveryMethodDao(namedParameterJdbcTemplate);
+        paymentMethodDao = new PaymentMethodDao(namedParameterJdbcTemplate);
         try (final Connection connection = ds.getConnection()) {
             final Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
             final Liquibase liquibase = new Liquibase("test-migration.xml", new ClassLoaderResourceAccessor(), database);
@@ -34,16 +34,15 @@ public class DeliveryMethodDaoTest {
     }
 
     @Test
-    void listDeliveryMethods() {
-        final List<DeliveryMethod> deliveryMethods = Arrays.asList(
-                new DeliveryMethod("dmId1", "self-pickup"),
-                new DeliveryMethod("dmId2", "post"));
-        assertEquals(deliveryMethods, deliveryMethodDao.listDeliveryMethods());
+    void listPaymentMethods() {
+        final List<PaymentMethod> paymentMethodList = Arrays.asList(new PaymentMethod("pmId1", "card"),
+                new PaymentMethod("pmId2", "cash"), new PaymentMethod("pmId3", "check"));
+        assertEquals(paymentMethodList, paymentMethodDao.listPaymentMethods());
     }
 
     @Test
-    void getDeliveryMethodBy() {
-        assertEquals("self-pickup", deliveryMethodDao.getDeliveryMethod("dmId1").getDeliveryMethod());
-        assertEquals("post", deliveryMethodDao.getDeliveryMethod("dmId2").getDeliveryMethod());
+    void getPaymentMethod() {
+        assertEquals("cash", paymentMethodDao.getPaymentMethod("pmId2").getPaymentMethod());
+        assertEquals("check", paymentMethodDao.getPaymentMethod("pmId3").getPaymentMethod());
     }
 }

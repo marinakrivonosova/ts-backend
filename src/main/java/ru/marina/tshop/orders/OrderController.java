@@ -24,11 +24,6 @@ public class OrderController {
         return orderService.addOrder(userId, request.getLineItemList(), request.getAddress(), request.getDeliveryMethodId(), request.getPaymentMethodId());
     }
 
-    @GetMapping("/payment-methods")
-    public List<PaymentMethod> getPaymentMethods() {
-        return orderService.getPaymentMethods();
-    }
-
     @GetMapping("/order-statuses")
     public List<OrderStatus> getOrderStatuses() {
         return orderService.getOrderStatuses();
