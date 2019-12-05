@@ -59,9 +59,6 @@ public class OrderServiceTest {
 
         when(configuration.getInitialOrderStatus()).thenReturn("created");
         when(configuration.getNotPaidPaymentStatusId()).thenReturn("psId2");
-        productDao.addProduct(new Product("prId1", "tv", "full hd", new BigDecimal("10000.00"), 2, 1, 100, "ctId1"));
-        productDao.addProduct(new Product("prId2", "tv", "full hd", new BigDecimal("12000.00"), 3, 1, 50, "ctId1"));
-        productDao.addProduct(new Product("prId3", "chair", "wooden", new BigDecimal("1000.00"), 1, 1, 20, "ctId2"));
     }
 
     @Test

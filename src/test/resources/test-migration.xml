@@ -80,4 +80,38 @@
             <column name="phone">89010569024</column>
         </insert>
     </changeSet>
+    
+    <changeSet id="product-data" author="Dmitry Lebedko">
+        <insert tableName="products">
+            <column name="product_id">prId1</column>
+            <column name="name">tv</column>
+            <column name="description">full hd</column>
+            <column name="price">10000.00</column>
+            <column name="weight">2</column>
+            <column name="volume">1</column>
+            <column name="count">100</column>
+            <column name="category_id">ctId1</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId2</column>
+            <column name="name">tv</column>
+            <column name="description">full hd</column>
+            <column name="price">12000.00</column>
+            <column name="weight">3</column>
+            <column name="volume">1</column>
+            <column name="count">50</column>
+            <column name="category_id">ctId1</column>
+        </insert>
+        <insert tableName="products">
+            <column name="product_id">prId3</column>
+            <column name="name">chair</column>
+            <column name="description">wooden</column>
+            <column name="price">1000.00</column>
+            <column name="weight">1</column>
+            <column name="volume">1</column>
+            <column name="count">20</column>
+            <column name="category_id">ctId2</column>
+        </insert>
+    </changeSet>
+    
 </databaseChangeLog>

@@ -1,11 +1,12 @@
 package ru.marina.tshop.orders;
 
-import ru.marina.tshop.orders.lineitems.LineItem;
-import ru.marina.tshop.orders.lineitems.LineItemDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.marina.tshop.orders.lineitems.LineItem;
+import ru.marina.tshop.orders.lineitems.LineItemDao;
 import ru.marina.tshop.orders.orderstatuses.OrderStatus;
 import ru.marina.tshop.orders.orderstatuses.OrderStatusDao;
 import ru.marina.tshop.products.Product;
@@ -34,6 +35,7 @@ public class OrderService {
         this.orderStatusDao = orderStatusDao;
     }
 
+    @Transactional
     public String addOrder(final String userId, final List<CreateLineItem> createLineItemList, final String address, final String deliveryMethodId, final String paymentMethodId) {
         if (createLineItemList == null || createLineItemList.isEmpty()) {
             throw new IllegalArgumentException("CreateLineItem parameter cannot be null or empty.");
@@ -72,6 +74,7 @@ public class OrderService {
         return orderStatusDao.listOrderStatuses();
     }
 
+    @Transactional(readOnly = true)
     public List<Order> listOrdersByStatus(final String orderStatusId) {
         return orderDao.listOrdersByStatus(orderStatusId);
     }
