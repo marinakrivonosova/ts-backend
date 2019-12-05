@@ -41,13 +41,6 @@ public class OrderDaoTest {
     }
 
     @Test
-    void getPaymentMethodsTest() {
-        final List<PaymentMethod> paymentMethodList = Arrays.asList(new PaymentMethod("pmId1", "card"),
-                new PaymentMethod("pmId2", "cash"), new PaymentMethod("pmId3", "check"));
-        assertEquals(paymentMethodList, orderDao.getPaymentMethods());
-    }
-
-    @Test
     void getOrdersByStatus() {
         final Order order1 = new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1");
         final Order order2 = new Order("id2", "uId", "address", "osId2", "dmId2", "pmId1", "psId1");

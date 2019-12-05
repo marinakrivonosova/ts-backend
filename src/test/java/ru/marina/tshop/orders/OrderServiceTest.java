@@ -5,14 +5,14 @@ import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.resource.ClassLoaderResourceAccessor;
-import ru.marina.tshop.orders.lineitems.LineItem;
-import ru.marina.tshop.orders.lineitems.LineItemDao;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import ru.marina.tshop.orders.lineitems.LineItem;
+import ru.marina.tshop.orders.lineitems.LineItemDao;
 import ru.marina.tshop.orders.orderstatuses.OrderStatusDao;
 import ru.marina.tshop.products.Product;
 import ru.marina.tshop.products.ProductDao;
@@ -35,9 +35,9 @@ public class OrderServiceTest {
     private LineItemDao lineItemDao;
     private OrderService orderService;
     private OrderStatusDao orderStatusDao;
+    private OrderDao orderDao;
 
     @MockBean
-    private OrderDao orderDao = mock(OrderDao.class);
     private Configuration configuration = mock(Configuration.class);
 
 
@@ -146,16 +146,6 @@ public class OrderServiceTest {
                 "dmId1",
                 "pmId2")
         );
-    }
-
-    @Test
-    void getPaymentMethods() {
-        final List<PaymentMethod> expectedPaymentMethodList = asList(
-                new PaymentMethod("pmId1", "card"),
-                new PaymentMethod("pmId2", "cash"),
-                new PaymentMethod("pmId3", "check")
-        );
-        assertEquals(expectedPaymentMethodList, orderService.getPaymentMethods());
     }
 
     @Test
