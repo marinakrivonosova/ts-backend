@@ -23,7 +23,7 @@ public class UserController {
 
     @PostMapping("/users/register")
     public String register(@RequestBody final RegisterRequest request) {
-        return userService.register(
+        userService.register(
                 request.getEmail(),
                 request.getFirstName(),
                 request.getLastName(),
@@ -31,5 +31,6 @@ public class UserController {
                 request.getPhone(),
                 request.getPassword(),
                 Collections.singletonList(Role.USER));
+        return userService.login(request.getEmail(), request.getPassword());
     }
 }

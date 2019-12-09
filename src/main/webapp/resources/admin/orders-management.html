@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../jquery-3.4.1.js"></script>
+    <script src="../handlebars-v4.4.3.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../general.css">
+    <link rel="stylesheet" href="orders-management.css">
+    <script src="orders-management.js"></script>
+    <script src="../context.js"></script>
+
+    <script id="dropdown-template-payment" type="text/x-handlebars-template">
+        <option value="{{id}}">{{paymentMethod}}</option>
+    </script>
+
+    <script id="dropdown-template-delivery" type="text/x-handlebars-template">
+        <option value="{{id}}">{{deliveryMethod}}</option>
+    </script>
+    <script id="table-template" type="text/x-handlebars-template">
+        <tr>
+            <th scope="row">{{count}}</th>
+            <td>{{email}}</td>
+            <td>{{order-status}}</td>
+            <td>{{delivery-status}}</td>
+            <td>{{delivery-method}}</td>
+            <td>{{payment-method}}</td>
+            <td>{{payment-status}}</td>
+        </tr>
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <nav class="navbar navbar-dark bg-primary">
+                <h2>T-shop</h2>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">User</th>
+                <th scope="col">Order status</th>
+                <th scope="col">Delivery status</th>
+                <th scope="col">Delivery method</th>
+                <th scope="col">Payment method</th>
+                <th scope="col">Payment status</th>
+            </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col">
+            <nav class="nav flex-column">
+                <a class="nav-link" href="admin-page.html">Back to main page</a>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>

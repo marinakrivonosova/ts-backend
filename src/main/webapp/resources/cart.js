@@ -1,6 +1,7 @@
 $(document).ready(function () {
     const lineItemTemplate = Handlebars.compile($("#line-item-template").html());
-    const paymentMethodTemplate = Handlebars.compile($("#dropdown-template").html());
+    const paymentMethodTemplate = Handlebars.compile($("#dropdown-template-payment").html());
+    const deliveryMethodTemplate = Handlebars.compile($("#dropdown-template-delivery").html());
 
     const keyStorage = "my-cart";
     const cart = localStorage.getItem(keyStorage);
@@ -41,10 +42,16 @@ $(document).ready(function () {
             $("#payment-method").append(paymentMethodHtml);
         });
     });
+    $.get(apiPath + "/delivery-methods", function (deliveryMethods, status, jqXHR) {
+        $.each(deliveryMethods, function (index, method) {
+            const deliveryMethodHtml = $(deliveryMethodTemplate(method));
+            $("#delivery-method").append(deliveryMethodHtml);
+        });
+    });
+
 
     $("#submit-order").click(function (event) {
         const address = $("#zip").val() + $("#city").val() + $("#address").val();
-        //TODO change to dynamic when back end logic is ready
         const deliveryMethodId = $("#delivery-method").val();
         const paymentMethodId = $("#payment-method").val();
         const data = {
@@ -57,13 +64,17 @@ $(document).ready(function () {
             type: "POST",
             url: apiPath + "/orders",
             data: JSON.stringify(data),
+            headers: {"Authorization": "Bearer " + localStorage.getItem('token')},
             contentType: "application/json; charset=utf-8",
             success: function (response, status, jqXHR) {
                 $("#order-succeeded").show();
-                localStorage.clear();
+                localStorage.removeItem(keyStorage);
                 $("#product-table").hide();
                 $("#additional-info").hide();
-
+            },
+            error: function (jqXHR, status, errorThrown) {
+                $("#card-body").append(`<div class="alert alert-primary" role="alert">
+                    For submitting an order you need to <a href="login.html" class="alert-link">login</a></div>`);
             }
         });
     });

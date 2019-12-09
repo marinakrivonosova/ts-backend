@@ -9,11 +9,10 @@
     <script src="cart.js"></script>
     <script src="context.js"></script>
 
-    <link rel="stylesheet" href="bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 
     <script id="line-item-template" type="text/x-handlebars-template">
         <tr>
@@ -24,8 +23,11 @@
         </tr>
     </script>
 
-    <script id="dropdown-template" type="text/x-handlebars-template">
+    <script id="dropdown-template-payment" type="text/x-handlebars-template">
         <option value="{{id}}">{{paymentMethod}}</option>
+    </script>
+    <script id="dropdown-template-delivery" type="text/x-handlebars-template">
+        <option value="{{id}}">{{deliveryMethod}}</option>
     </script>
 </head>
 <body>
@@ -42,10 +44,7 @@
         <div class="col">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Products</a>
+                    <a class="nav-link active" href="products.html">Products</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="my-orders.html">My orders</a>
@@ -75,7 +74,7 @@
         </div>
         <div class="col-4" id="submit-order-card">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body" id="card-body">
                     <h5 class="card-title">Total price</h5>
                     <h6 class="card-subtitle mb-2 text-muted" id="total-price"></h6>
                     <a href="#" class="btn btn-primary mb-2" id="submit-order">Submit order</a>
@@ -88,26 +87,26 @@
         <div class="col">
             <form>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="first-name">First name</label>
-                        <input type="text" class="form-control" id="first-name" placeholder="First name">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="last-name">Last name</label>
-                        <input type="text" class="form-control" id="last-name" placeholder="Last name">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputPhone">Phone number</label>
-                        <input type="text" class="form-control" id="inputPhone" placeholder="Phone number">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                    </div>
-                </div>
-                <div class="form-row">
+<!--                    <div class="form-group col-md-6">-->
+<!--                        <label for="first-name">First name</label>-->
+<!--                        <input type="text" class="form-control" id="first-name" placeholder="First name">-->
+<!--                    </div>-->
+<!--                    <div class="form-group col-md-6">-->
+<!--                        <label for="last-name">Last name</label>-->
+<!--                        <input type="text" class="form-control" id="last-name" placeholder="Last name">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="form-row">-->
+<!--                    <div class="form-group col-md-6">-->
+<!--                        <label for="inputPhone">Phone number</label>-->
+<!--                        <input type="text" class="form-control" id="inputPhone" placeholder="Phone number">-->
+<!--                    </div>-->
+<!--                    <div class="form-group col-md-6">-->
+<!--                        <label for="inputEmail">Email</label>-->
+<!--                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="form-row">-->
                     <div class="col-md-3">
                         <label for="city">City</label>
                         <input type="text" class="form-control" id="city" placeholder="City">
@@ -125,9 +124,6 @@
                     <div class="form-group col-md-6">
                         <label for="delivery-method">Delivery Method</label>
                         <select id="delivery-method" class="form-control">
-                            <!--                            TODO change to dynamic by name when back end logic is ready-->
-                            <option value="dmId1">Self-pickup</option>
-                            <option value="dmId2">Post</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
@@ -144,7 +140,7 @@
         <div class="col-4"></div>
         <div class="col-4 justify-content-center">
             <h5 id="empty-cart">Cart is empty</h5>
-            <a href="index.html" class="btn btn-primary add-to-cart">Start shopping</a>
+            <a href="products.html" class="btn btn-primary add-to-cart">Start shopping</a>
         </div>
         <div class="col-4"></div>
     </div>
