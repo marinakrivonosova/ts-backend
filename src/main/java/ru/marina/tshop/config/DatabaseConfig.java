@@ -13,6 +13,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -23,8 +24,8 @@ import java.sql.Connection;
 @EnableTransactionManagement
 public class DatabaseConfig {
     @Bean
-    public DataSource dataSource(@Value("${migration.script}") String migrationScript,
-            @Value("${migration.contexts}") String context) throws Exception {
+    public DataSource dataSource(@Value("${migration.script}") final String migrationScript,
+                                 @Value("${migration.contexts}") final String context) throws Exception {
         final EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         final EmbeddedDatabase db = builder
                 .setType(EmbeddedDatabaseType.H2)

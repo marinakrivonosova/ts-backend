@@ -14,7 +14,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import ru.marina.tshop.orders.lineitems.LineItem;
 import ru.marina.tshop.orders.lineitems.LineItemDao;
 import ru.marina.tshop.orders.orderstatuses.OrderStatusDao;
-import ru.marina.tshop.products.Product;
 import ru.marina.tshop.products.ProductDao;
 import ru.marina.tshop.utils.IdGenerator;
 

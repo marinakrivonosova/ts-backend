@@ -1,10 +1,12 @@
 package ru.marina.tshop.orders;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -12,10 +14,10 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
+@ExtendWith(SpringExtension.class)
 @TestPropertySource("classpath:application-test.properties")
 @ContextConfiguration("classpath:application-context-test.xml")
+@WebAppConfiguration
 public class OrderTransactionTest {
 
     @Autowired
@@ -26,6 +28,7 @@ public class OrderTransactionTest {
 
     @Test
     public void addOrder() {
+        final int orderCountBeforeTransaction = orderDao.getAllOrders().size();
         assertThrows(IllegalArgumentException.class, () -> orderService.addOrder(
                 "uId1",
                 asList(
@@ -36,8 +39,6 @@ public class OrderTransactionTest {
                 "dmId1",
                 "pmId2"));
 
-        assertEquals("There are no orders in the database.", 0, orderDao.getAllOrders().size());
+        assertEquals(orderCountBeforeTransaction, orderDao.getAllOrders().size());
     }
 }
-
-

@@ -7,6 +7,8 @@ import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.Clock;
+
 @Configuration
 @EnableCaching
 public class AppConfig {
@@ -34,5 +36,10 @@ public class AppConfig {
     @Bean
     public CacheManager cacheManager(final net.sf.ehcache.CacheManager ehCache) {
         return new EhCacheCacheManager(ehCache);
+    }
+
+    @Bean
+    public Clock cLock() {
+        return Clock.systemDefaultZone();
     }
 }

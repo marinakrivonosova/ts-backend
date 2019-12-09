@@ -67,7 +67,7 @@
             <column name="lastname">wick</column>
             <column name="birthdate">1980-12-17</column>
             <column name="email">john@email.com</column>
-            <column name="password">passw0rd</column>
+            <column name="hashed_password">$2a$10$mVLxtxjrZOzkKCBfCJ6SKeH8xR5Q8yfhVasuLjMEuaN0cWvrIYf9a</column>
             <column name="phone">89000000000</column>
         </insert>
         <insert tableName="users">
@@ -76,7 +76,7 @@
             <column name="lastname">sawyer</column>
             <column name="birthdate">1956-04-10</column>
             <column name="email">tom@email.com</column>
-            <column name="password">password1</column>
+            <column name="hashed_password">$2a$10$iThMn.ZyIIFboRYX/V.XnOFTg/ZbyT5HR7zTOeWNwOgFzSrTXlOq2</column>
             <column name="phone">89010569024</column>
         </insert>
     </changeSet>
