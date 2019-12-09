@@ -5,16 +5,15 @@ import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.resource.ClassLoaderResourceAccessor;
-import ru.marina.tshop.orders.lineitems.LineItem;
-import ru.marina.tshop.orders.lineitems.LineItemDao;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import ru.marina.tshop.orders.lineitems.LineItem;
+import ru.marina.tshop.orders.lineitems.LineItemDao;
 import ru.marina.tshop.orders.orderstatuses.OrderStatusDao;
-import ru.marina.tshop.products.Product;
 import ru.marina.tshop.products.ProductDao;
 import ru.marina.tshop.utils.IdGenerator;
 
@@ -35,9 +34,9 @@ public class OrderServiceTest {
     private LineItemDao lineItemDao;
     private OrderService orderService;
     private OrderStatusDao orderStatusDao;
+    private OrderDao orderDao;
 
     @MockBean
-    private OrderDao orderDao = mock(OrderDao.class);
     private Configuration configuration = mock(Configuration.class);
 
 
@@ -59,9 +58,6 @@ public class OrderServiceTest {
 
         when(configuration.getInitialOrderStatus()).thenReturn("created");
         when(configuration.getNotPaidPaymentStatusId()).thenReturn("psId2");
-        productDao.addProduct(new Product("prId1", "tv", "full hd", new BigDecimal("10000.00"), 2, 1, 100, "ctId1"));
-        productDao.addProduct(new Product("prId2", "tv", "full hd", new BigDecimal("12000.00"), 3, 1, 50, "ctId1"));
-        productDao.addProduct(new Product("prId3", "chair", "wooden", new BigDecimal("1000.00"), 1, 1, 20, "ctId2"));
     }
 
     @Test
@@ -146,16 +142,6 @@ public class OrderServiceTest {
                 "dmId1",
                 "pmId2")
         );
-    }
-
-    @Test
-    void getPaymentMethods() {
-        final List<PaymentMethod> expectedPaymentMethodList = asList(
-                new PaymentMethod("pmId1", "card"),
-                new PaymentMethod("pmId2", "cash"),
-                new PaymentMethod("pmId3", "check")
-        );
-        assertEquals(expectedPaymentMethodList, orderService.getPaymentMethods());
     }
 
     @Test

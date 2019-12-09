@@ -1,4 +1,4 @@
-package ru.marina.tshop.orders.delivery;
+package ru.marina.tshop.orders.payment;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,12 +15,13 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration
-public class CachingIntegrationTest {
-    private static DeliveryMethodDao dao = mock(DeliveryMethodDao.class);
+public class CachingPaymentIntegrationTest {
+    private static PaymentMethodDao dao = mock(PaymentMethodDao.class);
 
     @Configuration
     @EnableCaching
@@ -28,40 +29,40 @@ public class CachingIntegrationTest {
         // Simulating your caching configuration
         @Bean
         CacheManager cacheManager() {
-            return new ConcurrentMapCacheManager("deliveryMethods", "deliveryMethodsAll");
+            return new ConcurrentMapCacheManager("paymentMethods", "paymentMethodsAll");
         }
 
         // A repository mock instead of the real proxy
         @Bean
-        DeliveryMethodDao myRepo() {
+        PaymentMethodDao myRepo() {
             return dao;
         }
     }
 
     @Autowired
-    private DeliveryMethodDao repo;
+    private PaymentMethodDao repo;
 
     @Test
     public void listDeliveryMethods() {
-        final List<DeliveryMethod> deliveryMethods = Collections.singletonList(new DeliveryMethod("id1", "post"));
+        final List<PaymentMethod> paymentMethods = Collections.singletonList(new PaymentMethod("id1", "cash"));
 
-        when(dao.listDeliveryMethods()).thenReturn(deliveryMethods);
+        when(dao.listPaymentMethods()).thenReturn(paymentMethods);
 
-        assertEquals(deliveryMethods, repo.listDeliveryMethods());
-        assertEquals(deliveryMethods, repo.listDeliveryMethods());
+        assertEquals(paymentMethods, repo.listPaymentMethods());
+        assertEquals(paymentMethods, repo.listPaymentMethods());
 
-        verify(dao, times(1)).listDeliveryMethods();
+        verify(dao, times(1)).listPaymentMethods();
     }
 
     @Test
     public void getDeliveryMethod() {
-        final DeliveryMethod deliveryMethod = new DeliveryMethod("id1", "post");
+        final PaymentMethod paymentMethod = new PaymentMethod("id1", "card");
 
-        when(dao.getDeliveryMethod(any())).thenReturn(deliveryMethod);
+        when(dao.getPaymentMethod(any())).thenReturn(paymentMethod);
 
-        assertEquals(deliveryMethod, repo.getDeliveryMethod("id1"));
-        assertEquals(deliveryMethod, repo.getDeliveryMethod("id1"));
+        assertEquals(paymentMethod, repo.getPaymentMethod("id1"));
+        assertEquals(paymentMethod, repo.getPaymentMethod("id1"));
 
-        verify(dao, times(1)).getDeliveryMethod("id1");
+        verify(dao, times(1)).getPaymentMethod("id1");
     }
 }
