@@ -28,12 +28,10 @@ public class JwtTokenProvider {
     private static final String ROLE_CLAIM_NAME = "roles";
 
     private final SecurityConfiguration configuration;
-    private final Clock clock;
 
     @Autowired
-    public JwtTokenProvider(final SecurityConfiguration configuration, final Clock clock) {
+    public JwtTokenProvider(final SecurityConfiguration configuration) {
         this.configuration = configuration;
-        this.clock = clock;
     }
 
     public String createToken(final String userId, final List<Role> roles) {
@@ -60,7 +58,6 @@ public class JwtTokenProvider {
         final String token = bearerToken.substring(7);
 
         final JwtParser jwtParser = Jwts.parser()
-                .setClock(new ClockAdapter(clock))
                 .setSigningKey(configuration.getJwtSecretKey());
 
         final Claims body;

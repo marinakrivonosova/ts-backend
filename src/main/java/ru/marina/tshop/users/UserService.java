@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.marina.tshop.exception.EmailAlreadyUsedException;
+import ru.marina.tshop.exception.InvalidCredentialsException;
 import ru.marina.tshop.security.JwtTokenProvider;
 import ru.marina.tshop.utils.IdGenerator;
 
@@ -37,7 +39,7 @@ public class UserService {
         final String userId = idGenerator.generateId();
 
         if (userDao.findByEmail(email).isPresent()) {
-            throw new RuntimeException("User with this login is already exist");
+            throw new EmailAlreadyUsedException("User with this login is already exist");
         }
         userDao.addUser(new User(
                 userId,
@@ -56,7 +58,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public String login(final String email, final String password) {
-        final User user = userDao.findByEmail(email).orElseThrow(() -> new RuntimeException("Invalid username/password supplied"));
+        final User user = userDao.findByEmail(email).orElseThrow(() -> new InvalidCredentialsException("Invalid username/password supplied"));
 
         if (passwordEncoder.matches(password, user.getHashedPassword())) {
             return jwtTokenProvider.createToken(user.getId(), userDao.getRoles(user.getId()));

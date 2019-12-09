@@ -23,7 +23,7 @@ public class UserDao {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
-    public void addUser(final User user) {
+    public String addUser(final User user) {
         final String query = "INSERT INTO users (id, firstname, lastname, birthdate, email, hashed_password, phone)" +
                 " VALUES (:id, :firstname, :lastname, :birthdate, :email, :hashedPassword, :phone)";
         final SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
@@ -35,6 +35,7 @@ public class UserDao {
                 .addValue("hashedPassword", user.getHashedPassword())
                 .addValue("phone", user.getPhone());
         namedParameterJdbcTemplate.update(query, sqlParameterSource, new GeneratedKeyHolder());
+        return user.getId();
     }
 
     public Optional<User> findByEmail(final String email) {
@@ -62,7 +63,7 @@ public class UserDao {
         return namedParameterJdbcTemplate.query(query, sqlParameterSource, SingleColumnRowMapper.newInstance(Role.class));
     }
 
-    public void addUserRole(final String id, final String userId, Role role) {
+    public String addUserRole(final String id, final String userId, Role role) {
         final String query = "INSERT INTO user_roles (id, user_id, role)" +
                 " VALUES (:id, :userId, :role)";
         final SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
@@ -70,5 +71,6 @@ public class UserDao {
                 .addValue("userId", userId)
                 .addValue("role", role.name());
         namedParameterJdbcTemplate.update(query, sqlParameterSource, new GeneratedKeyHolder());
+        return id;
     }
 }
