@@ -1,6 +1,8 @@
 package ru.marina.tshop.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,14 +59,25 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public String login(final String email, final String password) {
+    public Pair<String, List<Role>> login(final String email, final String password) {
         final User user = userDao.findByEmail(email).orElseThrow(() -> new InvalidCredentialsException("Invalid username/password supplied"));
 
         if (passwordEncoder.matches(password, user.getHashedPassword())) {
-            return jwtTokenProvider.createToken(user.getId(), userDao.getRoles(user.getId()));
+            final List<Role> roles = userDao.getRoles(user.getId());
+            return Pair.of(jwtTokenProvider.createToken(user.getId(), roles), roles);
         } else {
             throw new RuntimeException("Invalid username/password supplied");
         }
+    }
+
+    @Transactional
+    public User getUser(final String userId) {
+        return userDao.getUser(userId);
+    }
+
+    @Transactional
+    public String getCurrentUserId() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }
 

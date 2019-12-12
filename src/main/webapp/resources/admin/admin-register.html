@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <script src="jquery-3.4.1.js"></script>
-    <script src="jquery.validate.min.js"></script>
+    <script src="../jquery-3.4.1.js"></script>
+    <script src="../jquery.validate.min.js"></script>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -14,10 +14,10 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="general.css">
-    <link rel="stylesheet" href="register.css">
-    <script src="context.js"></script>
-    <script src="register.js"></script>
+    <link rel="stylesheet" href="../general.css">
+    <link rel="stylesheet" href="admin-register.css">
+    <script src="../context.js"></script>
+    <script src="admin-register.js"></script>
 </head>
 <body>
 <div class="container">
@@ -32,12 +32,11 @@
         <div class="col">
             <div class="card">
                 <article class="card-body">
-                    <a href="login.html" class="float-right btn btn-outline-primary">Login</a>
                     <h4 class="card-title mb-4 mt-1">Register</h4>
                     <form id="registerForm">
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="inputEmail" class="required-field">Email</label>
+                                <label for="inputEmail"  class="required-field">Email</label>
                                 <input name="email" type="email" class="form-control" id="inputEmail">
                             </div>
                             <div class="form-group col-md-4">
@@ -49,7 +48,7 @@
                                 </small>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputRepeatedPassword" class="required-field">Repeat password</label>
+                                <label for="inputRepeatedPassword"  class="required-field">Repeat password</label>
                                 <input name="repeatedPassword" type="password" class="form-control"
                                        id="inputRepeatedPassword">
                             </div>
@@ -79,6 +78,13 @@
                     </form>
                 </article>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <nav class="nav flex-column">
+                <a class="nav-link" href="admin-page.html">Back to main page</a>
+            </nav>
         </div>
     </div>
 </div>

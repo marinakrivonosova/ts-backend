@@ -6,14 +6,25 @@ $(document).ready(function () {
             login: login,
             password: password
         };
-
         $.ajax({
-            type:POST,
+            type: "POST",
             url: apiPath + "/users/login",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             success: function (response, status, jqXHR) {
-
+                let path;
+                for (let i = 0; i < response.length; i++) {
+                    if (response[i] === "ADMIN") {
+                        path = rootPath + "/admin/admin-page.html";
+                        break;
+                    } else {
+                        path = rootPath + "/products.html";
+                    }
+                }
+                $(location).attr("href", path);
+            },
+            error: function (jqXHR, status, errorThrown) {
+                alert("Invalid username/password supplied!")
             }
         });
     });

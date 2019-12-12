@@ -1,1 +1,2 @@
-apiPath = "/app";
+apiPath = "/app/api";
+rootPath = "/app";

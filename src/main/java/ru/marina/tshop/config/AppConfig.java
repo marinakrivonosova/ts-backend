@@ -18,10 +18,14 @@ public class AppConfig {
         final CacheConfiguration deliveryMethodsAllConfig = new CacheConfiguration("deliveryMethodsAll", 10);
         final CacheConfiguration paymentMethodsConfig = new CacheConfiguration("paymentMethods", 10);
         final CacheConfiguration paymentMethodsAllConfig = new CacheConfiguration("paymentMethodsAll", 10);
+        final CacheConfiguration paymentStatusesAllConfig = new CacheConfiguration("paymentStatusesAll", 10);
+        final CacheConfiguration paymentStatusesConfig = new CacheConfiguration("paymentStatuses", 10);
         deliveryMethodsConfig.setTimeToLiveSeconds(1000);
         deliveryMethodsAllConfig.setTimeToLiveSeconds(1000);
         paymentMethodsConfig.setTimeToLiveSeconds(1000);
         paymentMethodsAllConfig.setTimeToLiveSeconds(1000);
+        paymentStatusesAllConfig.setTimeToLiveSeconds(1000);
+        paymentStatusesConfig.setTimeToLiveSeconds(1000);
 
 
         final net.sf.ehcache.config.Configuration configuration = new net.sf.ehcache.config.Configuration();
@@ -29,6 +33,8 @@ public class AppConfig {
         configuration.addCache(deliveryMethodsAllConfig);
         configuration.addCache(paymentMethodsAllConfig);
         configuration.addCache(paymentMethodsConfig);
+        configuration.addCache(paymentStatusesAllConfig);
+        configuration.addCache(paymentStatusesConfig);
 
         return net.sf.ehcache.CacheManager.create(configuration);
     }

@@ -14,7 +14,7 @@ import ru.marina.tshop.orders.OrderDao;
 
 import java.sql.Connection;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OrderCommentsDaoTest {
     private OrderCommentDao orderCommentDao;

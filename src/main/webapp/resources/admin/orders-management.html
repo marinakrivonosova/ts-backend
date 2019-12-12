@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="general.css">
-    <link rel="stylesheet" href="my-orders.css">
-
-    <script src="jquery-3.4.1.js"></script>
-    <script src="handlebars-v4.4.3.js"></script>
-    <script src="my-orders.js"></script>
-    <script src="context.js"></script>
+    <script src="../jquery-3.4.1.js"></script>
+    <script src="../handlebars-v4.4.3.js"></script>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -18,17 +13,30 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="../general.css">
+    <link rel="stylesheet" href="orders-management.css">
+    <script src="orders-management.js"></script>
+    <script src="../context.js"></script>
 
     <script id="dropdown-template-orders" type="text/x-handlebars-template">
         <tr>
-            <td> <a class="nav-link active" href="order-details.html?order-id={{id}}">{{id}}</a></td>
+            <th scope="row"></th>
+            <td>{{user.email}}</td>
+            <td>
+                <select class="order-status-selector form-control">
+                    {{#each orderStatuses}}
+                    {{#if selected}}
+                    <option value="{{id}}" selected="selected">{{orderStatus}}</option>
+                    {{else}}
+                    <option value="{{id}}">{{orderStatus}}</option>
+                    {{/if}}
+                    {{/each}}
+                </select>
+            </td>
             <td>{{deliveryMethod}}</td>
+            <td>{{paymentMethod}}</td>
             <td>{{paymentStatus}}</td>
         </tr>
-    </script>
-
-    <script id="dropdown-status-template" type="text/x-handlebars-template">
-        <option value="{{id}}">{{orderStatus}}</option>
     </script>
 </head>
 <body>
@@ -40,42 +48,29 @@
             </nav>
         </div>
     </div>
-
     <div class="row">
         <div class="col">
-            <ul class="nav justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link active" href="products.html">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="my-orders.html">My orders</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="cart.html">Cart</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-md-6">
-            <select id="order-status" class="form-control">
-                <option selected>Select order status:</option>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <table class="table" id="all-orders">
+            <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">Order Number</th>
+                    <th scope="col">#</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Order status</th>
                     <th scope="col">Delivery method</th>
+                    <th scope="col">Payment method</th>
                     <th scope="col">Payment status</th>
                 </tr>
                 </thead>
                 <tbody id="table-body">
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <nav class="nav flex-column">
+                <a class="nav-link" href="admin-page.html">Back to main page</a>
+            </nav>
         </div>
     </div>
 </div>

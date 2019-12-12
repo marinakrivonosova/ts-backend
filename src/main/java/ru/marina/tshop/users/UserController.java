@@ -1,10 +1,11 @@
 package ru.marina.tshop.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
 import java.util.Collections;
 
 @RestController
@@ -17,13 +18,17 @@ public class UserController {
     }
 
     @PostMapping("/users/login")
-    public String login(@RequestBody final LoginRequest request) {
-        return userService.login(request.getLogin(), request.getPassword());
+    public Collection<Role> login(@RequestBody final LoginRequest request, final HttpServletResponse response) {
+        final var loginResult = userService.login(request.getLogin(), request.getPassword());
+        final Cookie cookie = new Cookie("token", loginResult.getFirst());
+        cookie.setPath("/app");
+        response.addCookie(cookie);
+        return loginResult.getSecond();
     }
 
     @PostMapping("/users/register")
-    public String register(@RequestBody final RegisterRequest request) {
-        return userService.register(
+    public void register(@RequestBody final RegisterRequest request, final HttpServletResponse response) {
+        userService.register(
                 request.getEmail(),
                 request.getFirstName(),
                 request.getLastName(),
@@ -31,5 +36,14 @@ public class UserController {
                 request.getPhone(),
                 request.getPassword(),
                 Collections.singletonList(Role.USER));
+        final String token = userService.login(request.getEmail(), request.getPassword()).getFirst();
+        final Cookie cookie = new Cookie("token", token);
+        cookie.setPath("/app");
+        response.addCookie(cookie);
+    }
+
+    @GetMapping("/users/{userId}")
+    public User getUser(@PathVariable("userId") final String userId) {
+        return userService.getUser(userId);
     }
 }

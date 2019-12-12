@@ -2,11 +2,11 @@
 <html>
 <head>
     <link rel="stylesheet" href="general.css">
-    <link rel="stylesheet" href="my-orders.css">
+    <link rel="stylesheet" href="order-details.css">
 
     <script src="jquery-3.4.1.js"></script>
     <script src="handlebars-v4.4.3.js"></script>
-    <script src="my-orders.js"></script>
+    <script src="order-details.js"></script>
     <script src="context.js"></script>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -19,17 +19,16 @@
             crossorigin="anonymous"></script>
 
 
-    <script id="dropdown-template-orders" type="text/x-handlebars-template">
+    <script id="template-line-item" type="text/x-handlebars-template">
         <tr>
-            <td> <a class="nav-link active" href="order-details.html?order-id={{id}}">{{id}}</a></td>
-            <td>{{deliveryMethod}}</td>
-            <td>{{paymentStatus}}</td>
+            <td><a class="nav-link active" href="product-details.html?product-id={{productId}}">{{name}}</a></td>
+            <td>{{price}}</td>
+            <td>{{count}}</td>
         </tr>
     </script>
-
-    <script id="dropdown-status-template" type="text/x-handlebars-template">
-        <option value="{{id}}">{{orderStatus}}</option>
-    </script>
+    <!--    <script id="template-total-price" type="text/x-handlebars-template">-->
+    <!--        <p>Total price: {{totalPrice}}</p>-->
+    <!--    </script>-->
 </head>
 <body>
 <div class="container">
@@ -57,25 +56,26 @@
         </div>
     </div>
     <div class="row">
-        <div class="form-group col-md-6">
-            <select id="order-status" class="form-control">
-                <option selected>Select order status:</option>
-            </select>
-        </div>
+
     </div>
     <div class="row">
         <div class="col">
-            <table class="table" id="all-orders">
+            <table class="table table-hover" id="all-products">
                 <thead>
                 <tr>
-                    <th scope="col">Order Number</th>
-                    <th scope="col">Delivery method</th>
-                    <th scope="col">Payment status</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Items</th>
                 </tr>
                 </thead>
                 <tbody id="table-body">
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" id="totalPrice">
+
         </div>
     </div>
 </div>

@@ -11,11 +11,11 @@ $(document).ready(function () {
             };
             $.ajax({
                 type: "POST",
-                url: apiPath + "/users/register",
+                url: apiPath + "/admin/register",
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
                 success: function (response, status, jqXHR) {
-                    $(location).attr("href", rootPath + "/products.html");
+                    $(location).attr("href", rootPath + "/admin/admin-page.html");
                 },
                 error: function (jqXHR, status, errorThrown) {
                     alert("User with this email is already exist.");
@@ -44,8 +44,7 @@ $(document).ready(function () {
                 equalTo: "#inputPassword"
             },
             phone: {
-                required: true,
-                regxPhone: "^(\\(?\\+?[0-9]*\\)?)?[0-9_\\- \\(\\)]*$"
+                required: true
             },
             birthday: {
                 required: true
@@ -61,17 +60,12 @@ $(document).ready(function () {
             },
             email: "Please enter a valid email address.",
             phone: "Please enter a phone number.",
-            birthday: "Please enter a date of birth.",
-            repeatedPassword: "Passwords do not match."
+            birthday: "Please enter a date of birth."
         }
     });
 
     $.validator.addMethod("regx", function (value, element, regexpr) {
         let re = new RegExp(regexpr);
-        return this.optional(element) || re.test(value);
-    });
-    $.validator.addMethod("regxPhone", function (value, element, regexpres) {
-        let re = new RegExp(regexpres);
         return this.optional(element) || re.test(value);
     });
 });

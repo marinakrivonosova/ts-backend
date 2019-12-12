@@ -20,8 +20,8 @@ public class AdminController {
     }
 
     @PostMapping("/admin/register")
-    public String register(@RequestBody final RegisterRequest request) {
-        return userService.register(
+    public void register(@RequestBody final RegisterRequest request) {
+        userService.register(
                 request.getEmail(),
                 request.getFirstName(),
                 request.getLastName(),
