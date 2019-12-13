@@ -1,14 +1,30 @@
 <configuration>
-
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- encoders are assigned the type
-             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <property name="HOME_LOG" value="/logs"/>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>../logs/t-shop-log.txt</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>../logs/t-shop-log-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+            <maxFileSize>1MB</maxFileSize>
+        </rollingPolicy>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="ru.marina.tshop" level="INFO" additivity="false">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
     <root level="INFO">
+        <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
