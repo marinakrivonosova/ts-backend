@@ -149,4 +149,30 @@ public class OrderControllerTest {
                 .andExpect(jsonPath("$[0]").value(lineItem1))
                 .andExpect(jsonPath("$[1]").value(lineItem2));
     }
+    @Test
+    void getAllOrders() throws Exception {
+        when(orderService.getAllOrders()).thenReturn(Arrays.asList(
+                new Order("id1", "uId", "address1", "osId1", "dmId1", "pmId2", "psId1"),
+                new Order("id2", "uId", "address2", "osId2", "dmId2", "pmId1", "psId2")));
+
+        mockMvc.perform(get("/orders/all")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$[?(@.id=='id1')].id").value("id1"))
+                .andExpect(jsonPath("$[?(@.id=='id1')].userId").value("uId"))
+                .andExpect(jsonPath("$[?(@.id=='id1')].address").value("address1"))
+                .andExpect(jsonPath("$[?(@.id=='id1')].orderStatusId").value("osId1"))
+                .andExpect(jsonPath("$[?(@.id=='id1')].deliveryMethodId").value("dmId1"))
+                .andExpect(jsonPath("$[?(@.id=='id1')].paymentMethodId").value("pmId2"))
+                .andExpect(jsonPath("$[?(@.id=='id1')].paymentStatusId").value("psId1"))
+                .andExpect(jsonPath("$[?(@.id=='id2')].id").value("id2"))
+                .andExpect(jsonPath("$[?(@.id=='id2')].userId").value("uId"))
+                .andExpect(jsonPath("$[?(@.id=='id2')].address").value("address2"))
+                .andExpect(jsonPath("$[?(@.id=='id2')].orderStatusId").value("osId2"))
+                .andExpect(jsonPath("$[?(@.id=='id2')].deliveryMethodId").value("dmId2"))
+                .andExpect(jsonPath("$[?(@.id=='id2')].paymentMethodId").value("pmId1"))
+                .andExpect(jsonPath("$[?(@.id=='id2')].paymentStatusId").value("psId2"));
+    }
 }

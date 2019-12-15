@@ -22,6 +22,7 @@ public class UserController {
         final var loginResult = userService.login(request.getLogin(), request.getPassword());
         final Cookie cookie = new Cookie("token", loginResult.getFirst());
         cookie.setPath("/app");
+        cookie.setHttpOnly(true);
         response.addCookie(cookie);
         return loginResult.getSecond();
     }
@@ -39,6 +40,7 @@ public class UserController {
         final String token = userService.login(request.getEmail(), request.getPassword()).getFirst();
         final Cookie cookie = new Cookie("token", token);
         cookie.setPath("/app");
+        cookie.setHttpOnly(true);
         response.addCookie(cookie);
     }
 

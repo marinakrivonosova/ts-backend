@@ -163,4 +163,16 @@ public class OrderServiceTest {
         orderService.updateOrder("id1", order.getOrderStatusId());
         assertEquals(order, orderDao.getOrder("id1"));
     }
+
+    @Test
+    void getAllOrders() {
+        final List<Order> orders = asList(
+                new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1"),
+                new Order("id2", "uId", "address", "osId2", "dmId2", "pmId1", "psId1"));
+
+        orderDao.addOrder(new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1"));
+        orderDao.addOrder(new Order("id2", "uId", "address", "osId2", "dmId2", "pmId1", "psId1"));
+
+        assertEquals(orders, orderService.getAllOrders());
+    }
 }

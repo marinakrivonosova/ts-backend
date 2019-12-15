@@ -3,23 +3,23 @@ package ru.marina.tshop.orders.paymentstatuses;
 import java.util.Objects;
 
 public class PaymentStatus {
-    private String paymentStatusId;
+    private String id;
     private String paymentStatus;
 
     public PaymentStatus(final String paymentStatusId, final String paymentStatus) {
-        this.paymentStatusId = paymentStatusId;
+        this.id = paymentStatusId;
         this.paymentStatus = paymentStatus;
     }
 
     public PaymentStatus() {
     }
 
-    public String getPaymentStatusId() {
-        return paymentStatusId;
+    public String getId() {
+        return id;
     }
 
-    public void setPaymentStatusId(final String paymentStatusId) {
-        this.paymentStatusId = paymentStatusId;
+    public void setId(final String id) {
+        this.id = id;
     }
 
     public String getPaymentStatus() {
@@ -35,19 +35,19 @@ public class PaymentStatus {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PaymentStatus that = (PaymentStatus) o;
-        return paymentStatusId.equals(that.paymentStatusId) &&
+        return id.equals(that.id) &&
                 paymentStatus.equals(that.paymentStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(paymentStatusId, paymentStatus);
+        return Objects.hash(id, paymentStatus);
     }
 
     @Override
     public String toString() {
         return "PaymentStatus{" +
-                "paymentStatusId='" + paymentStatusId + '\'' +
+                "paymentStatusId='" + id + '\'' +
                 ", paymentStatus='" + paymentStatus + '\'' +
                 '}';
     }
