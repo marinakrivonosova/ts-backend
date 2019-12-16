@@ -1,7 +1,5 @@
 package ru.marina.tshop.orders;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +10,7 @@ import ru.marina.tshop.orders.orderstatuses.OrderStatusDao;
 import ru.marina.tshop.products.Product;
 import ru.marina.tshop.products.ProductDao;
 import ru.marina.tshop.utils.IdGenerator;
+import ru.marina.tshop.utils.UniqueSeq;
 
 import java.util.List;
 
@@ -19,14 +18,16 @@ import java.util.List;
 public class OrderService {
     private final OrderDao orderDao;
     private final IdGenerator idGenerator;
+    private final UniqueSeq uniqueSeq;
     private final LineItemDao lineItemDao;
     private final ProductDao productDao;
     private final Configuration configuration;
     private final OrderStatusDao orderStatusDao;
 
     @Autowired
-    public OrderService(final OrderDao orderDao, final IdGenerator idGenerator, final LineItemDao lineItemDao, final ProductDao productDao, final Configuration configuration, final OrderStatusDao orderStatusDao) {
+    public OrderService(final OrderDao orderDao, final IdGenerator idGenerator, final UniqueSeq uniqueSeq, final LineItemDao lineItemDao, final ProductDao productDao, final Configuration configuration, final OrderStatusDao orderStatusDao) {
         this.orderDao = orderDao;
+        this.uniqueSeq = uniqueSeq;
         this.idGenerator = idGenerator;
         this.lineItemDao = lineItemDao;
         this.productDao = productDao;
@@ -40,8 +41,10 @@ public class OrderService {
             throw new IllegalArgumentException("CreateLineItem parameter cannot be null or empty.");
         }
         final String orderId = idGenerator.generateId();
+        final String orderNumber =  uniqueSeq.getNext();
         orderDao.addOrder(new Order(
                 orderId,
+                orderNumber,
                 userId,
                 address,
                 orderStatusDao.getOrderStatusId(configuration.getInitialOrderStatus()),
@@ -94,7 +97,7 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
-    public Order getOrder(final String orderId){
+    public Order getOrder(final String orderId) {
         return orderDao.getOrder(orderId);
     }
 }

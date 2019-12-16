@@ -35,6 +35,7 @@ $(document).ready(function () {
                                 success: function (paymentStatus, status, jqXHR) {
                                     let context = {
                                         id: order.id,
+                                        orderNumber: order.orderNumber,
                                         address: order.address,
                                         deliveryMethod: deliveryMethod.deliveryMethod,
                                         paymentStatus: paymentStatus.paymentStatus
