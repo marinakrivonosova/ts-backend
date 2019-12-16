@@ -13,7 +13,6 @@ public class User {
     private String firstName;
     private String lastName;
     @JsonDeserialize(using = LocalDateDeserializer.class)
-   // @JsonSerialize(as = String.class)
     private LocalDate birthDate;
     private String email;
     private String hashedPassword; // TODO regenerate toString

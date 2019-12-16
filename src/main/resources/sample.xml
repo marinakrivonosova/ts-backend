@@ -264,11 +264,15 @@
         </insert>
         <insert tableName="order_statuses">
             <column name="id">osId1</column>
-            <column name="order_status">created</column>
+            <column name="order_status">Active</column>
         </insert>
         <insert tableName="order_statuses">
             <column name="id">osId2</column>
-            <column name="order_status">active</column>
+            <column name="order_status">Completed</column>
+        </insert>
+        <insert tableName="order_statuses">
+            <column name="id">osId3</column>
+            <column name="order_status">Cancelled</column>
         </insert>
         <insert tableName="users">
             <column name="id">uId1</column>

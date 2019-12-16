@@ -17,7 +17,6 @@ import java.util.List;
 
 @Service
 public class OrderService {
-    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
     private final OrderDao orderDao;
     private final IdGenerator idGenerator;
     private final LineItemDao lineItemDao;
@@ -92,5 +91,10 @@ public class OrderService {
     @Transactional(readOnly = true)
     public List<LineItem> listLineItems(final String orderId) {
         return lineItemDao.listLineItems(orderId);
+    }
+
+    @Transactional(readOnly = true)
+    public Order getOrder(final String orderId){
+        return orderDao.getOrder(orderId);
     }
 }

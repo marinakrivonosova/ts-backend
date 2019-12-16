@@ -64,7 +64,6 @@ public class OrderControllerTest {
 
     @Test
     public void submitOrderTest() throws Exception {
-        when(userService.getCurrentUserId()).thenReturn("uId1");
         try (final InputStream inputStream = new ClassPathResource("create-order.json").getInputStream()) {
             mockMvc.perform(post("/orders")
                     .accept(MediaType.APPLICATION_JSON)
@@ -174,5 +173,23 @@ public class OrderControllerTest {
                 .andExpect(jsonPath("$[?(@.id=='id2')].deliveryMethodId").value("dmId2"))
                 .andExpect(jsonPath("$[?(@.id=='id2')].paymentMethodId").value("pmId1"))
                 .andExpect(jsonPath("$[?(@.id=='id2')].paymentStatusId").value("psId2"));
+    }
+    @Test
+    void getOrder() throws Exception {
+        when(orderService.getOrder(any())).thenReturn(
+                new Order("id1", "uId", "address1", "osId1", "dmId1", "pmId2", "psId1"));
+
+        mockMvc.perform(get("/orders/all/id1")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value("id1"))
+                .andExpect(jsonPath("$.userId").value("uId"))
+                .andExpect(jsonPath("$.address").value("address1"))
+                .andExpect(jsonPath("$.orderStatusId").value("osId1"))
+                .andExpect(jsonPath("$.deliveryMethodId").value("dmId1"))
+                .andExpect(jsonPath("$.paymentMethodId").value("pmId2"));
+
     }
 }

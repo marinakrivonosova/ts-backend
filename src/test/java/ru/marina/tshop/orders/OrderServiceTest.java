@@ -175,4 +175,14 @@ public class OrderServiceTest {
 
         assertEquals(orders, orderService.getAllOrders());
     }
+    @Test
+    void getOrder(){
+        final Order order1 = new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1");
+        orderDao.addOrder(order1);
+        final Order order2 = new Order("id2", "uId", "address", "osId2", "dmId2", "pmId1", "psId1");
+        orderDao.addOrder(order2);
+
+        assertEquals(order1, orderService.getOrder("id1"));
+        assertEquals(order2, orderService.getOrder("id2"));
+    }
 }
