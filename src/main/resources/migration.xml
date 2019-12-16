@@ -120,9 +120,6 @@
             <column name="id" type="varchar(36)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="order_number" type="varchar(36)">
-                <constraints unique="true" nullable="false"/>
-            </column>
             <column name="user_id" type="varchar(36)">
                 <constraints nullable="false" foreignKeyName="orders_user_id_fk"
                              referencedTableName="users" referencedColumnNames="id"/>
@@ -190,5 +187,13 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="order_number" author="Marina Krivonosova">
+        <addColumn tableName="orders">
+            <column name="order_number" type="varchar(36)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>
