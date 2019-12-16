@@ -20,10 +20,11 @@ public class OrderDao {
     }
 
     public void addOrder(final Order order) {
-        final String query = "INSERT INTO orders (id, user_id, address, payment_method_id, payment_status_id, delivery_method_id, order_status_id)" +
-                " VALUES (:id, :userId, :address, :paymentMethodId, :paymentStatusId, :deliveryMethodId, :orderStatusId)";
+        final String query = "INSERT INTO orders (id, order_number, user_id, address, payment_method_id, payment_status_id, delivery_method_id, order_status_id)" +
+                " VALUES (:id, :orderNumber, :userId, :address, :paymentMethodId, :paymentStatusId, :deliveryMethodId, :orderStatusId)";
         final SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
                 .addValue("id", order.getId())
+                .addValue("orderNumber", order.getOrderNumber())
                 .addValue("userId", order.getUserId())
                 .addValue("address", order.getAddress())
                 .addValue("orderStatusId", order.getOrderStatusId())

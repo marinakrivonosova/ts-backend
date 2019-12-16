@@ -35,15 +35,15 @@ public class OrderDaoTest {
 
     @Test
     void addOrderDaoTest() {
-        final Order order = new Order("id", "uId", "address", "osId1", "dmId1", "pmId1", "psId2");
+        final Order order = new Order("id", "12345","uId", "address", "osId1", "dmId1", "pmId1", "psId2");
         orderDao.addOrder(order);
         assertEquals(order, orderDao.getOrder("id"));
     }
 
     @Test
     void getOrdersByStatus() {
-        final Order order1 = new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1");
-        final Order order2 = new Order("id2", "uId", "address", "osId2", "dmId2", "pmId1", "psId1");
+        final Order order1 = new Order("id1", "12345","uId", "address", "osId1", "dmId1", "pmId1", "psId1");
+        final Order order2 = new Order("id2", "123456","uId", "address", "osId2", "dmId2", "pmId1", "psId1");
         orderDao.addOrder(order1);
         orderDao.addOrder(order2);
 
@@ -56,7 +56,7 @@ public class OrderDaoTest {
 
     @Test
     void updateOrder() {
-        final Order order = new Order("id", "uId", "address", "osId1", "dmId1", "pmId1", "psId1");
+        final Order order = new Order("id", "12345","uId", "address", "osId1", "dmId1", "pmId1", "psId1");
         orderDao.addOrder(order);
         assertEquals(order, orderDao.getOrder("id"));
 
@@ -68,25 +68,25 @@ public class OrderDaoTest {
 
     @Test
     void getOrderByIdTest() {
-        orderDao.addOrder(new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId2"));
-        orderDao.addOrder(new Order("id2", "uId", "address", "osId1", "dmId2", "pmId1", "psId1"));
-        orderDao.addOrder(new Order("id3", "uId1", "address", "osId2", "dmId2", "pmId2", "psId1"));
+        orderDao.addOrder(new Order("id1", "12345","uId", "address", "osId1", "dmId1", "pmId1", "psId2"));
+        orderDao.addOrder(new Order("id2", "123456","uId", "address", "osId1", "dmId2", "pmId1", "psId1"));
+        orderDao.addOrder(new Order("id3", "1234567","uId1", "address", "osId2", "dmId2", "pmId2", "psId1"));
 
-        assertEquals(new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId2"), orderDao.getOrder("id1"));
-        assertEquals(new Order("id2", "uId", "address", "osId1", "dmId2", "pmId1", "psId1"), orderDao.getOrder("id2"));
-        assertEquals(new Order("id3", "uId1", "address", "osId2", "dmId2", "pmId2", "psId1"), orderDao.getOrder("id3"));
+        assertEquals(new Order("id1","12345", "uId", "address", "osId1", "dmId1", "pmId1", "psId2"), orderDao.getOrder("id1"));
+        assertEquals(new Order("id2","123456", "uId", "address", "osId1", "dmId2", "pmId1", "psId1"), orderDao.getOrder("id2"));
+        assertEquals(new Order("id3","1234567", "uId1", "address", "osId2", "dmId2", "pmId2", "psId1"), orderDao.getOrder("id3"));
     }
 
     @Test
     void getAllOrdersTest() {
-        orderDao.addOrder(new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId2"));
-        orderDao.addOrder(new Order("id2", "uId", "address", "osId1", "dmId2", "pmId1", "psId1"));
-        orderDao.addOrder(new Order("id3", "uId1", "address", "osId2", "dmId2", "pmId2", "psId1"));
+        orderDao.addOrder(new Order("id1","12345", "uId", "address", "osId1", "dmId1", "pmId1", "psId2"));
+        orderDao.addOrder(new Order("id2","123456", "uId", "address", "osId1", "dmId2", "pmId1", "psId1"));
+        orderDao.addOrder(new Order("id3","1234567", "uId1", "address", "osId2", "dmId2", "pmId2", "psId1"));
 
         final List<Order> ordersList = Arrays.asList(
-                new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId2"),
-                new Order("id2", "uId", "address", "osId1", "dmId2", "pmId1", "psId1"),
-                new Order("id3", "uId1", "address", "osId2", "dmId2", "pmId2", "psId1"));
+                new Order("id1","12345", "uId", "address", "osId1", "dmId1", "pmId1", "psId2"),
+                new Order("id2","123456", "uId", "address", "osId1", "dmId2", "pmId1", "psId1"),
+                new Order("id3","1234567", "uId1", "address", "osId2", "dmId2", "pmId2", "psId1"));
         assertEquals(orderDao.getAllOrders(), ordersList);
     }
 }

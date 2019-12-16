@@ -120,6 +120,9 @@
             <column name="id" type="varchar(36)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="order_number" type="varchar(36)">
+                <constraints unique="true" nullable="false"/>
+            </column>
             <column name="user_id" type="varchar(36)">
                 <constraints nullable="false" foreignKeyName="orders_user_id_fk"
                              referencedTableName="users" referencedColumnNames="id"/>

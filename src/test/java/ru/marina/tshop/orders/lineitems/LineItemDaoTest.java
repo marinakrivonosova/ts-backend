@@ -41,7 +41,7 @@ public class LineItemDaoTest {
 
     @Test
     void addLineItem() {
-        orderDao.addOrder(new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId2"));
+        orderDao.addOrder(new Order("id1", "12345", "uId", "address", "osId1", "dmId1", "pmId1", "psId2"));
 
         final LineItem lineItem = new LineItem("liId1", "id1", "prId1", 3, new BigDecimal("10000.00"));
         lineItemDao.addLineItem(lineItem);
@@ -51,7 +51,7 @@ public class LineItemDaoTest {
 
     @Test
     void listLineItems() {
-        orderDao.addOrder(new Order("id2", "uId", "address", "osId1", "dmId1", "pmId1", "psId2"));
+        orderDao.addOrder(new Order("id2","123456", "uId", "address", "osId1", "dmId1", "pmId1", "psId2"));
         lineItemDao.addLineItem(new LineItem("liId2", "id2", "prId1", 3, new BigDecimal("10000.00")));
         lineItemDao.addLineItem(new LineItem("liId3", "id2", "prId2", 1, new BigDecimal("12000.00")));
 

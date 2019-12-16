@@ -16,6 +16,7 @@ import ru.marina.tshop.orders.lineitems.LineItemDao;
 import ru.marina.tshop.orders.orderstatuses.OrderStatusDao;
 import ru.marina.tshop.products.ProductDao;
 import ru.marina.tshop.utils.IdGenerator;
+import ru.marina.tshop.utils.UniqueSeq;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -32,13 +33,14 @@ import static org.mockito.Mockito.when;
 public class OrderServiceTest {
     private ProductDao productDao;
     private LineItemDao lineItemDao;
-    private OrderService orderService;
     private OrderStatusDao orderStatusDao;
     private OrderDao orderDao;
-
+    private OrderService orderService;
     @MockBean
     private Configuration configuration = mock(Configuration.class);
 
+    @MockBean
+    private UniqueSeq uniqueSeq = mock(UniqueSeq.class);
 
     @BeforeEach
     void setupDB() throws Exception {
@@ -54,10 +56,11 @@ public class OrderServiceTest {
         final Liquibase liquibase = new Liquibase("test-migration.xml", new ClassLoaderResourceAccessor(), database);
         liquibase.dropAll();
         liquibase.update("test");
-        orderService = new OrderService(orderDao, new IdGenerator(), lineItemDao, productDao, configuration, orderStatusDao);
+        orderService = new OrderService(orderDao, new IdGenerator(), uniqueSeq, lineItemDao, productDao, configuration, orderStatusDao);
 
         when(configuration.getInitialOrderStatus()).thenReturn("created");
         when(configuration.getNotPaidPaymentStatusId()).thenReturn("psId2");
+        when(uniqueSeq.getNext()).thenReturn("12345");
     }
 
     @Test
@@ -74,6 +77,7 @@ public class OrderServiceTest {
 
         assertEquals(new Order(
                 orderId,
+                "12345",
                 "uId1",
                 "address",
                 "osId1",
@@ -146,18 +150,20 @@ public class OrderServiceTest {
 
     @Test
     void listOrderByStatus() {
-        orderDao.addOrder(new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1"));
-        orderDao.addOrder(new Order("id2", "uId", "address", "osId2", "dmId2", "pmId1", "psId1"));
+        final Order order1 = new Order("id1", "12345", "uId", "address", "osId1", "dmId1", "pmId1", "psId1");
+        orderDao.addOrder(order1);
+        final Order order2 = new Order("id2", "123456", "uId", "address", "osId2", "dmId2", "pmId1", "psId1");
+        orderDao.addOrder(order2);
 
-        assertEquals(singletonList(new Order("id2", "uId", "address", "osId2", "dmId2", "pmId1", "psId1")),
+        assertEquals(singletonList(order2),
                 orderService.listOrdersByStatus("osId2", "uId"));
-        assertEquals(singletonList(new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1")),
+        assertEquals(singletonList(order1),
                 orderService.listOrdersByStatus("osId1", "uId"));
     }
 
     @Test
     void updateOrder() {
-        final Order order = new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1");
+        final Order order = new Order("id1", "12345", "uId", "address", "osId1", "dmId1", "pmId1", "psId1");
         orderDao.addOrder(order);
         order.setOrderStatusId("osId2");
         orderService.updateOrder("id1", order.getOrderStatusId());
@@ -167,19 +173,20 @@ public class OrderServiceTest {
     @Test
     void getAllOrders() {
         final List<Order> orders = asList(
-                new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1"),
-                new Order("id2", "uId", "address", "osId2", "dmId2", "pmId1", "psId1"));
+                new Order("id1", "12345", "uId", "address", "osId1", "dmId1", "pmId1", "psId1"),
+                new Order("id2", "123456", "uId", "address", "osId2", "dmId2", "pmId1", "psId1"));
 
-        orderDao.addOrder(new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1"));
-        orderDao.addOrder(new Order("id2", "uId", "address", "osId2", "dmId2", "pmId1", "psId1"));
+        orderDao.addOrder(new Order("id1", "12345", "uId", "address", "osId1", "dmId1", "pmId1", "psId1"));
+        orderDao.addOrder(new Order("id2", "123456", "uId", "address", "osId2", "dmId2", "pmId1", "psId1"));
 
         assertEquals(orders, orderService.getAllOrders());
     }
+
     @Test
-    void getOrder(){
-        final Order order1 = new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1");
+    void getOrder() {
+        final Order order1 = new Order("id1", "12345", "uId", "address", "osId1", "dmId1", "pmId1", "psId1");
         orderDao.addOrder(order1);
-        final Order order2 = new Order("id2", "uId", "address", "osId2", "dmId2", "pmId1", "psId1");
+        final Order order2 = new Order("id2", "123456", "uId", "address", "osId2", "dmId2", "pmId1", "psId1");
         orderDao.addOrder(order2);
 
         assertEquals(order1, orderService.getOrder("id1"));

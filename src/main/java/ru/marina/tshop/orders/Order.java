@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Order {
     private String id;
+    private String orderNumber;
     private String userId;
     private String address;
     private String deliveryMethodId;
@@ -11,18 +12,19 @@ public class Order {
     private String orderStatusId;
     private String paymentStatusId;
 
-    public Order(final String id, final String userId, final String address, final String orderStatusId,
-                 final String deliveryMethodId, final String paymentMethodId, final String paymentStatusId) {
-        this.id = id;
-        this.userId = userId;
-        this.address = address;
-        this.orderStatusId = orderStatusId;
-        this.deliveryMethodId = deliveryMethodId;
-        this.paymentMethodId = paymentMethodId;
-        this.paymentStatusId = paymentStatusId;
+    public Order() {
     }
 
-    public Order() {
+    public Order(final String id, final String orderNumber, final String userId, final String address, final String orderStatusId,
+                 final String deliveryMethodId, final String paymentMethodId, final String paymentStatusId) {
+        this.id = id;
+        this.orderNumber = orderNumber;
+        this.userId = userId;
+        this.address = address;
+        this.deliveryMethodId = deliveryMethodId;
+        this.paymentMethodId = paymentMethodId;
+        this.orderStatusId = orderStatusId;
+        this.paymentStatusId = paymentStatusId;
     }
 
     public String getId() {
@@ -31,6 +33,14 @@ public class Order {
 
     public void setId(final String id) {
         this.id = id;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(final String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public String getUserId() {
@@ -49,14 +59,6 @@ public class Order {
         this.address = address;
     }
 
-    public String getOrderStatusId() {
-        return orderStatusId;
-    }
-
-    public void setOrderStatusId(final String orderStatusId) {
-        this.orderStatusId = orderStatusId;
-    }
-
     public String getDeliveryMethodId() {
         return deliveryMethodId;
     }
@@ -73,6 +75,14 @@ public class Order {
         this.paymentMethodId = paymentMethodId;
     }
 
+    public String getOrderStatusId() {
+        return orderStatusId;
+    }
+
+    public void setOrderStatusId(final String orderStatusId) {
+        this.orderStatusId = orderStatusId;
+    }
+
     public String getPaymentStatusId() {
         return paymentStatusId;
     }
@@ -82,11 +92,26 @@ public class Order {
     }
 
     @Override
+    public String toString() {
+        return "Order{" +
+                "id='" + id + '\'' +
+                ", orderNumber='" + orderNumber + '\'' +
+                ", userId='" + userId + '\'' +
+                ", address='" + address + '\'' +
+                ", deliveryMethodId='" + deliveryMethodId + '\'' +
+                ", paymentMethodId='" + paymentMethodId + '\'' +
+                ", orderStatusId='" + orderStatusId + '\'' +
+                ", paymentStatusId='" + paymentStatusId + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final Order order = (Order) o;
         return id.equals(order.id) &&
+                orderNumber.equals(order.orderNumber) &&
                 userId.equals(order.userId) &&
                 address.equals(order.address) &&
                 deliveryMethodId.equals(order.deliveryMethodId) &&
@@ -97,19 +122,6 @@ public class Order {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, address, deliveryMethodId, paymentMethodId, orderStatusId, paymentStatusId);
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id='" + id + '\'' +
-                ", userId='" + userId + '\'' +
-                ", address='" + address + '\'' +
-                ", deliveryMethodId='" + deliveryMethodId + '\'' +
-                ", paymentMethodId='" + paymentMethodId + '\'' +
-                ", orderStatusId='" + orderStatusId + '\'' +
-                ", paymentStatusId='" + paymentStatusId + '\'' +
-                '}';
+        return Objects.hash(id, orderNumber, userId, address, deliveryMethodId, paymentMethodId, orderStatusId, paymentStatusId);
     }
 }
