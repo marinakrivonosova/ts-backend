@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $("#login-alert").hide();
     $("#loginButton").click(function (event) {
         const login = $("#email").val();
         const password = $("#password").val();
@@ -24,7 +25,7 @@ $(document).ready(function () {
                 $(location).attr("href", path);
             },
             error: function (jqXHR, status, errorThrown) {
-                alert("Invalid username/password supplied!")
+                $("#login-alert").show();
             }
         });
     });

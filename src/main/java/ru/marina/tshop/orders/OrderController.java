@@ -1,5 +1,7 @@
 package ru.marina.tshop.orders;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -52,5 +54,9 @@ public class OrderController {
     @GetMapping("/{orderId}/line-items")
     public List<LineItem> listLineItems(@PathVariable("orderId") final String orderId) {
         return orderService.listLineItems(orderId);
+    }
+    @GetMapping("/orders/all/{orderId}")
+    public Order getOrder(@PathVariable("orderId") final String orderId){
+        return orderService.getOrder(orderId);
     }
 }

@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    $("#warning-alert").hide();
+
     $("#registerForm").validate({
         submitHandler: function (form, event) {
             const data = {
@@ -18,7 +20,7 @@ $(document).ready(function () {
                     $(location).attr("href", rootPath + "/admin/admin-page.html");
                 },
                 error: function (jqXHR, status, errorThrown) {
-                    alert("User with this email is already exist.");
+                    $("#warning-alert").show();
                 }
             });
         },
