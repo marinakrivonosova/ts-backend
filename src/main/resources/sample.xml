@@ -290,6 +290,16 @@
             <!--            password is passw0rd-->
             <column name="phone">89010569024</column>
         </insert>
+        <insert tableName="users">
+            <column name="id">uId3</column>
+            <column name="firstname">nick</column>
+            <column name="lastname">jones</column>
+            <column name="birthdate">1980-12-17</column>
+            <column name="email">nick@email.com</column>
+            <column name="hashed_password">$2a$10$mVLxtxjrZOzkKCBfCJ6SKeH8xR5Q8yfhVasuLjMEuaN0cWvrIYf9a</column>
+            <!--            password is qwerty-->
+            <column name="phone">89067688000</column>
+        </insert>
         <insert tableName="user_roles">
             <column name="id">urId1</column>
             <column name="user_id">uId1</column>
@@ -302,9 +312,13 @@
         </insert>
         <insert tableName="user_roles">
             <column name="id">urId3</column>
-            <column name="user_id">uId2</column>
+            <column name="user_id">uId3</column>
+            <column name="role">USER</column>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="id">urId4</column>
+            <column name="user_id">uId3</column>
             <column name="role">ADMIN</column>
         </insert>
-
     </changeSet>
 </databaseChangeLog>

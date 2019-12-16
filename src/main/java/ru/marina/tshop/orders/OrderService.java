@@ -75,7 +75,22 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
-    public List<Order> listOrdersByStatus(final String orderStatusId) {
-        return orderDao.listOrdersByStatus(orderStatusId);
+    public List<Order> listOrdersByStatus(final String orderStatusId, final String userId) {
+        return orderDao.listOrdersByStatus(orderStatusId, userId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Order> getAllOrders() {
+        return orderDao.getAllOrders();
+    }
+
+    @Transactional
+    public void updateOrder(final String orderId, final String orderStatusId) {
+        orderDao.updateOrder(orderId, orderStatusId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<LineItem> listLineItems(final String orderId) {
+        return lineItemDao.listLineItems(orderId);
     }
 }

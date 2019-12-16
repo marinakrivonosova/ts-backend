@@ -14,9 +14,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import ru.marina.tshop.users.Role;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
-import java.time.Clock;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,10 +52,16 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(final HttpServletRequest req) {
-        final String bearerToken = req.getHeader("Authorization");
-        if (bearerToken == null || !bearerToken.startsWith("Bearer ")) return null;
-
-        final String token = bearerToken.substring(7);
+        final Cookie[] cookies = req.getCookies();
+        String token = null;
+        if (cookies == null) return null;
+        for (final Cookie cookie : cookies) {
+            if ("token".equals(cookie.getName())) {
+                token = cookie.getValue();
+                break;
+            }
+        }
+        if (token == null) return null;
 
         final JwtParser jwtParser = Jwts.parser()
                 .setSigningKey(configuration.getJwtSecretKey());

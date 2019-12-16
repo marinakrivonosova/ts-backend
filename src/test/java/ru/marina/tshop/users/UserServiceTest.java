@@ -45,9 +45,11 @@ public class UserServiceTest {
         when(userDao.findByEmail(any())).thenReturn(Optional.of(
                 new User("userId", "Tom", "Smith", LocalDate.of(2000, 10, 1),
                         "email", "hashedPassword", "0")));
-        final String token = userService.login("email", "password");
+        final var loginResult = userService.login("email", "password");
 
-        assertEquals("token", token);
+        assertNotNull(loginResult);
+        assertEquals("token", loginResult.getFirst());
+        assertEquals(Collections.singletonList(Role.USER), loginResult.getSecond());
         verify(passwordEncoder).matches("password", "hashedPassword");
         verify(jwtTokenProvider).createToken("userId", Collections.singletonList(Role.USER));
     }

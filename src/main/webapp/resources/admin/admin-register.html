@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <script src="../jquery-3.4.1.js"></script>
+    <script src="../jquery.validate.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../general.css">
+    <link rel="stylesheet" href="admin-register.css">
+    <script src="../context.js"></script>
+    <script src="admin-register.js"></script>
+    <title>Register an admin</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <nav class="navbar navbar-dark bg-primary">
+                <h2>T-shop</h2>
+            </nav>
+        </div>
+    </div>
+    <div class="row" id="loginForm">
+        <div class="col">
+            <div class="card">
+                <article class="card-body">
+                    <h4 class="card-title mb-4 mt-1">Register</h4>
+                    <form id="registerForm">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="inputEmail" class="required-field">Email</label>
+                                <input name="email" type="email" class="form-control" id="inputEmail">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputPassword" class="required-field">Password</label>
+                                <input name="password" type="password" class="form-control" id="inputPassword">
+                                <small id="passwordHelpBlock" class="form-text text-muted">
+                                    The password must start with a letter, must contain at least one digit, and to be
+                                    from 8 to 20 characters.
+                                </small>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputRepeatedPassword" class="required-field">Repeat password</label>
+                                <input name="repeatedPassword" type="password" class="form-control"
+                                       id="inputRepeatedPassword">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="inputName" class="required-field">First Name</label>
+                                <input name="name" type="text" class="form-control" id="inputName">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputLastName" class="required-field">Last Name</label>
+                                <input name="lastName" type="text" class="form-control" id="inputLastName">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputPhone" class="required-field">Phone Number</label>
+                                <input name="phone" type="tel" class="form-control" id="inputPhone">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="inputBirthday" class="required-field">Date of birth</label>
+                                <input name="birthday" type="date" class="form-control" id="inputBirthday">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block" id="registerButton">Register</button>
+                    </form>
+                </article>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <nav class="nav flex-column">
+                <a class="nav-link" href="admin-page.html">Back to main page</a>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>

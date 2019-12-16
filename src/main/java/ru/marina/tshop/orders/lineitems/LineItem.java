@@ -1,5 +1,10 @@
 package ru.marina.tshop.orders.lineitems;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.NumberDeserializers;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -8,6 +13,8 @@ public class LineItem {
     private String orderId;
     private String productId;
     private int count;
+    @JsonDeserialize(using = NumberDeserializers.BigDecimalDeserializer.class)
+    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal price;
 
     public LineItem() {

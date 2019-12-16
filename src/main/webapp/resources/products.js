@@ -1,8 +1,6 @@
 $(document).ready(function () {
 
     const productsListTemplate = Handlebars.compile($("#card-template").html());
-    //TODO finish when category logic will be added
-    const categoryListTemplate = Handlebars.compile($("#dropdown-category-template").html());
 
     const limit = 6;
     const keyStorage = "my-cart";

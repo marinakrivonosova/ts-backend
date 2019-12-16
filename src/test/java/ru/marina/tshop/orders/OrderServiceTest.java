@@ -24,7 +24,7 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -150,10 +150,29 @@ public class OrderServiceTest {
         orderDao.addOrder(new Order("id2", "uId", "address", "osId2", "dmId2", "pmId1", "psId1"));
 
         assertEquals(singletonList(new Order("id2", "uId", "address", "osId2", "dmId2", "pmId1", "psId1")),
-                orderService.listOrdersByStatus("osId2"));
+                orderService.listOrdersByStatus("osId2", "uId"));
         assertEquals(singletonList(new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1")),
-                orderService.listOrdersByStatus("osId1"));
+                orderService.listOrdersByStatus("osId1", "uId"));
+    }
 
+    @Test
+    void updateOrder() {
+        final Order order = new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1");
+        orderDao.addOrder(order);
+        order.setOrderStatusId("osId2");
+        orderService.updateOrder("id1", order.getOrderStatusId());
+        assertEquals(order, orderDao.getOrder("id1"));
+    }
 
+    @Test
+    void getAllOrders() {
+        final List<Order> orders = asList(
+                new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1"),
+                new Order("id2", "uId", "address", "osId2", "dmId2", "pmId1", "psId1"));
+
+        orderDao.addOrder(new Order("id1", "uId", "address", "osId1", "dmId1", "pmId1", "psId1"));
+        orderDao.addOrder(new Order("id2", "uId", "address", "osId2", "dmId2", "pmId1", "psId1"));
+
+        assertEquals(orders, orderService.getAllOrders());
     }
 }

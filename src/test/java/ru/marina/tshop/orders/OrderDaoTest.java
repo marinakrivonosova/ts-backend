@@ -48,10 +48,10 @@ public class OrderDaoTest {
         orderDao.addOrder(order2);
 
         final List<Order> ordersActive = singletonList(order2);
-        assertEquals(ordersActive, orderDao.listOrdersByStatus("osId2"));
+        assertEquals(ordersActive, orderDao.listOrdersByStatus("osId2", "uId"));
 
         final List<Order> ordersCompleted = singletonList(order1);
-        assertEquals(ordersCompleted, orderDao.listOrdersByStatus("osId1"));
+        assertEquals(ordersCompleted, orderDao.listOrdersByStatus("osId1", "uId"));
     }
 
     @Test
@@ -60,12 +60,8 @@ public class OrderDaoTest {
         orderDao.addOrder(order);
         assertEquals(order, orderDao.getOrder("id"));
 
-        order.setAddress("new address");
         order.setOrderStatusId("osId2");
-        order.setDeliveryMethodId("dmId2");
-        order.setPaymentMethodId("pmId2");
-        order.setPaymentStatusId("psId2");
-        orderDao.updateOrder(order);
+        orderDao.updateOrder(order.getId(), "osId2");
 
         assertEquals(order, orderDao.getOrder("id"));
     }
