@@ -44,6 +44,6 @@ $(document).ready(function () {
                 }
             });
         });
+        $("#totalPrice").append($('<span />').html(`$${totalPrice}`));
     });
-    $("#totalPrice").append($('<span />').html(`$${totalPrice}`));
 });
