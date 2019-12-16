@@ -10,10 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -24,16 +21,19 @@ import java.sql.Connection;
 @EnableTransactionManagement
 public class DatabaseConfig {
     @Bean
-    public DataSource dataSource(@Value("${migration.script}") final String migrationScript,
-                                 @Value("${migration.contexts}") final String context) throws Exception {
-        final EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-        final EmbeddedDatabase db = builder
-                .setType(EmbeddedDatabaseType.H2)
-                .build();
+    public DataSource dataSource(@Value("${db.migration.script}") final String migrationScript,
+                                 @Value("${db.migration.contexts}") final String context,
+                                 @Value("${db.password}") final String password,
+                                 @Value("${db.username}") final String username,
+                                 @Value("${db.driver}") final String driver,
+                                 @Value("${db.url}") final String url) throws Exception {
+        final DriverManagerDataSource db = new DriverManagerDataSource(url);
+        db.setUsername(username);
+        db.setPassword(password);
+        db.setDriverClassName(driver);
         try (final Connection connection = db.getConnection()) {
             final Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
             final Liquibase liquibase = new Liquibase(migrationScript, new ClassLoaderResourceAccessor(), database);
-            liquibase.dropAll();
             liquibase.update(context);
             return db;
         }
