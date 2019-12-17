@@ -8,6 +8,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.time.YearMonth;
+
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,7 +37,13 @@ public class OrderTransactionTest {
                         new CreateLineItem("prId3", 1000)),
                 "address",
                 "dmId1",
-                "pmId2"));
+                "pmId2",
+                new PaymentInformation(
+                        "cardNumber",
+                        "cvc",
+                        YearMonth.of(2030, 2),
+                        "cardHolder"
+                )));
 
         assertEquals(orderCountBeforeTransaction, orderDao.getAllOrders().size());
     }

@@ -66,7 +66,7 @@ public class UserService {
             final List<Role> roles = userDao.getRoles(user.getId());
             return Pair.of(jwtTokenProvider.createToken(user.getId(), roles), roles);
         } else {
-            throw new RuntimeException("Invalid username/password supplied");
+            throw new InvalidCredentialsException("Invalid username/password supplied");
         }
     }
 

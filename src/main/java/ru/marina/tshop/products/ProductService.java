@@ -10,12 +10,10 @@ import java.util.List;
 @Service
 public class ProductService {
     private final ProductDao productDao;
-    private final IdGenerator idGenerator;
 
     @Autowired
-    public ProductService(final ProductDao productDao, final IdGenerator idGenerator) {
+    public ProductService(final ProductDao productDao) {
         this.productDao = productDao;
-        this.idGenerator = idGenerator;
     }
 
     @Transactional(readOnly = true)

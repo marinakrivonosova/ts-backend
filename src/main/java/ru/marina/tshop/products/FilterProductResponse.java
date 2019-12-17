@@ -3,8 +3,8 @@ package ru.marina.tshop.products;
 import java.util.List;
 
 class FilterProductResponse {
-    public List<Product> products;
-    public int overallSuitableProducts;
+    private List<Product> products;
+    private int overallSuitableProducts;
 
     public FilterProductResponse() {
     }

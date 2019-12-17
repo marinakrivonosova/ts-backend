@@ -1,4 +1,4 @@
-package ru.marina.tshop.orders;
+package ru.marina.tshop.orders.paymentgateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -7,20 +7,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 @PropertySource("classpath:application.properties")
-public class Configuration {
-
+public class PaymentGatewayConfiguration {
     private final Environment environment;
 
     @Autowired
-    public Configuration(final Environment environment) {
+    public PaymentGatewayConfiguration(final Environment environment) {
         this.environment = environment;
     }
 
-    public String getInitialOrderStatus() {
-        return environment.getProperty("orders.initial.status");
-    }
-
-    public String getPaidPaymentStatusId() {
-        return environment.getProperty("orders.payment.status.id.paid");
+    public String paymentGatewayUri() {
+        return environment.getProperty("payments.gateway.url");
     }
 }

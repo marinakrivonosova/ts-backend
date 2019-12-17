@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $("#after-button").hide();
 
     const template = Handlebars.compile($("#detailed-product-template").html());
 
@@ -35,6 +36,7 @@ $(document).ready(function() {
         $("#product-container").append(html);
         $("#add-to-card-btn").click(function(event) {
             addToCart(data);
+            $("#after-button").show();
         });
     });
 });

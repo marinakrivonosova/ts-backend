@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    $("#pay-invoice").hide();
+    $("#alert-card").hide();
+    $("#alert-order").hide();
     $("#address-form").validate({
         rules: {
             city: {
@@ -18,7 +19,7 @@ $(document).ready(function () {
             zip: "Please fill the form"
         }
     });
-    $("#pay-invoice").validate({
+    $("#payment-form").validate({
         rules: {
             cardholder: {
                 required: true,
@@ -26,12 +27,13 @@ $(document).ready(function () {
             cardnumber: {
                 required: true,
                 digits: true,
-                creditcard: true
+                minlength: 16,
+                maxlength: 16
             },
             expiration: {
                 required: true,
-                minlength: 5,
-                maxlength: 5
+                minlength: 7,
+                maxlength: 7
 
             },
             cvc: {
@@ -49,6 +51,17 @@ $(document).ready(function () {
         }
     });
 
+    $.ajax({
+        type: "GET",
+        url: (apiPath + "/get-cookies"),
+        contentType: "application/json; charset=utf-8",
+        success: function (response, status, jqXHR) {
+            $("#alert-card").hide();
+        },
+        error: function (jqXHR, status, errorThrown) {
+            $("#alert-card").show();
+        }
+    });
     const lineItemTemplate = Handlebars.compile($("#line-item-template").html());
     const paymentMethodTemplate = Handlebars.compile($("#dropdown-template-payment").html());
     const deliveryMethodTemplate = Handlebars.compile($("#dropdown-template-delivery").html());
@@ -64,6 +77,7 @@ $(document).ready(function () {
         $("#product-table").hide();
         $("#additional-info").hide();
         $("#order-succeeded").hide();
+        $("#clear-cart").hide();
     }
 
     let totalPrice = 0;
@@ -98,64 +112,56 @@ $(document).ready(function () {
             $("#delivery-method").append(deliveryMethodHtml);
         });
     });
-
-
+    $("#clear-cart").click(function (event) {
+        localStorage.removeItem(keyStorage);
+        $("#product-table").hide();
+        $("#additional-info").hide();
+        $("#cart-empty-badge").show();
+    });
     $("#submit-order").click(function (event) {
-        $("#pay-invoice").show();
-        if ($("#pay-invoice").valid()) {
+        if ($("#payment-form").valid() && $("#address-form").valid()) {
             const cardNumber = $("#cc-number").val();
             const cvc = $("#x_card_code").val();
             const expiration = $("#cc-exp").val();
             const cardHolder = $("#cc-name").val();
 
+            const address = $("#zip").val() + " " + $("#city").val() + " " + $("#address").val();
+            const deliveryMethodId = $("#delivery-method").val();
+            const paymentMethodId = $("#payment-method").val();
             const data = {
-                cardNumber: cardNumber,
-                cvc: cvc,
-                expirationDate: expiration,
-                cardHolder: cardHolder,
-                chargedAmount: totalPrice
+                address: address,
+                deliveryMethodId: deliveryMethodId,
+                paymentMethodId: paymentMethodId,
+                lineItemList: lineItems,
+                paymentInformation: {
+                    cardNumber: cardNumber,
+                    cvc: cvc,
+                    expirationDate: expiration,
+                    cardHolder: cardHolder,
+                }
             };
-            $("#payment-button").click(function (event) {
-                $.ajax({
-                    type: "POST",
-                    url: apiPath + "/pay",
-                    data: JSON.stringify(data),
-                    contentType: "application/json; charset=utf-8",
-                    success: function (response, status, jqXHR) {
-                        if ($("#address-form").valid()) {
-                            const address = $("#zip").val() + " " + $("#city").val() + " " + $("#address").val();
-                            const deliveryMethodId = $("#delivery-method").val();
-                            const paymentMethodId = $("#payment-method").val();
-                            const data = {
-                                address: address,
-                                deliveryMethodId: deliveryMethodId,
-                                paymentMethodId: paymentMethodId,
-                                lineItemList: lineItems
-                            };
-                            $.ajax({
-                                type: "POST",
-                                url: apiPath + "/orders",
-                                data: JSON.stringify(data),
-                                contentType: "application/json; charset=utf-8",
-                                success: function (response, status, jqXHR) {
-                                    $("#order-succeeded").show();
-                                    localStorage.removeItem(keyStorage);
-                                    $("#product-table").hide();
-                                    $("#additional-info").hide();
-                                },
-                                error: function (jqXHR, status, errorThrown) {
-                                    $("#card-body").append(`<div class="alert alert-primary" role="alert">
-                                    For submitting an order you need to <a href="login.html" class="alert-link">login</a></div>`);
-                                }
-                            });
-                        }
-                    },
-                    error: function (jqXHR, status, errorThrown) {
-                        $("#card-body").append(`<div class="alert alert-primary" role="alert">
-                    Payment failed</div>`);
-                    }
-                });
+            // $.ajax({
+            //     type: "POST",
+            //     url: apiPath + "/pay",
+            //     data: JSON.stringify(cardData),
+            //     contentType: "application/json; charset=utf-8",
+            //     success: function (response, status, jqXHR) {
+            $.ajax({
+                type: "POST",
+                url: apiPath + "/orders",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                success: function (response, status, jqXHR) {
+                    $("#order-succeeded").show();
+                    localStorage.removeItem(keyStorage);
+                    $("#product-table").hide();
+                    $("#additional-info").hide();
+                },
+                error: function (jqXHR, status, errorThrown) {
+                    $("#alert-order").show();
+                }
             });
+
         }
     });
 });

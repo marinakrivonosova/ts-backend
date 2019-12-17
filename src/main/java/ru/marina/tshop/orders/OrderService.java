@@ -7,11 +7,13 @@ import ru.marina.tshop.orders.lineitems.LineItem;
 import ru.marina.tshop.orders.lineitems.LineItemDao;
 import ru.marina.tshop.orders.orderstatuses.OrderStatus;
 import ru.marina.tshop.orders.orderstatuses.OrderStatusDao;
+import ru.marina.tshop.orders.paymentgateway.PaymentGatewayService;
 import ru.marina.tshop.products.Product;
 import ru.marina.tshop.products.ProductDao;
 import ru.marina.tshop.utils.IdGenerator;
 import ru.marina.tshop.utils.UniqueSeq;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -23,9 +25,10 @@ public class OrderService {
     private final ProductDao productDao;
     private final Configuration configuration;
     private final OrderStatusDao orderStatusDao;
+    private final PaymentGatewayService paymentGatewayService;
 
     @Autowired
-    public OrderService(final OrderDao orderDao, final IdGenerator idGenerator, final UniqueSeq uniqueSeq, final LineItemDao lineItemDao, final ProductDao productDao, final Configuration configuration, final OrderStatusDao orderStatusDao) {
+    public OrderService(final OrderDao orderDao, final IdGenerator idGenerator, final UniqueSeq uniqueSeq, final LineItemDao lineItemDao, final ProductDao productDao, final Configuration configuration, final OrderStatusDao orderStatusDao, final PaymentGatewayService paymentGatewayService) {
         this.orderDao = orderDao;
         this.uniqueSeq = uniqueSeq;
         this.idGenerator = idGenerator;
@@ -33,15 +36,16 @@ public class OrderService {
         this.productDao = productDao;
         this.configuration = configuration;
         this.orderStatusDao = orderStatusDao;
+        this.paymentGatewayService = paymentGatewayService;
     }
 
     @Transactional
-    public String addOrder(final String userId, final List<CreateLineItem> createLineItemList, final String address, final String deliveryMethodId, final String paymentMethodId) {
+    public String addOrder(final String userId, final List<CreateLineItem> createLineItemList, final String address, final String deliveryMethodId, final String paymentMethodId, final PaymentInformation paymentInformation) {
         if (createLineItemList == null || createLineItemList.isEmpty()) {
             throw new IllegalArgumentException("CreateLineItem parameter cannot be null or empty.");
         }
         final String orderId = idGenerator.generateId();
-        final String orderNumber =  uniqueSeq.getNext();
+        final String orderNumber = uniqueSeq.getNext();
         orderDao.addOrder(new Order(
                 orderId,
                 orderNumber,
@@ -50,8 +54,9 @@ public class OrderService {
                 orderStatusDao.getOrderStatusId(configuration.getInitialOrderStatus()),
                 deliveryMethodId,
                 paymentMethodId,
-                configuration.getNotPaidPaymentStatusId()));
+                configuration.getPaidPaymentStatusId()));
 
+        BigDecimal amount = BigDecimal.ZERO;
         for (final CreateLineItem createLineItem : createLineItemList) {
             final Product product = productDao.getProduct(createLineItem.getProductId());
 
@@ -68,7 +73,12 @@ public class OrderService {
 
             product.setCount(product.getCount() - createLineItem.getCount());
             productDao.updateProduct(product);
+
+            amount = amount.add(product.getPrice().multiply(BigDecimal.valueOf(createLineItem.getCount())));
         }
+
+        paymentGatewayService.doPayment(paymentInformation.getCardNumber(), paymentInformation.getCvc(), paymentInformation.getExpirationDate(), paymentInformation.getCardHolder(), amount);
+
         return orderId;
     }
 

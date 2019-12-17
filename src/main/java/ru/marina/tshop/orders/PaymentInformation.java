@@ -1,23 +1,28 @@
 package ru.marina.tshop.orders;
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.StringSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.YearMonthDeserializer;
 
-public class ProcessPaymentRequest {
+import java.time.YearMonth;
+
+public class PaymentInformation {
     private String cardNumber;
     private String cvc;
-    private String expirationDate;
+    @JsonSerialize(using = StringSerializer.class)
+    @JsonDeserialize(using = YearMonthDeserializer.class)
+    private YearMonth expirationDate;
     private String cardHolder;
-    private BigDecimal chargedAmount;
 
-    public ProcessPaymentRequest() {
+    public PaymentInformation() {
     }
 
-    public ProcessPaymentRequest(final String cardNumber, final String cvc, final String expirationDate, final String cardHolder, final BigDecimal chargedAmount) {
+    public PaymentInformation(final String cardNumber, final String cvc, final YearMonth expirationDate, final String cardHolder) {
         this.cardNumber = cardNumber;
         this.cvc = cvc;
         this.expirationDate = expirationDate;
         this.cardHolder = cardHolder;
-        this.chargedAmount = chargedAmount;
     }
 
     public String getCardNumber() {
@@ -36,11 +41,11 @@ public class ProcessPaymentRequest {
         this.cvc = cvc;
     }
 
-    public String getExpirationDate() {
+    public YearMonth getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(final String expirationDate) {
+    public void setExpirationDate(final YearMonth expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -50,13 +55,5 @@ public class ProcessPaymentRequest {
 
     public void setCardHolder(final String cardHolder) {
         this.cardHolder = cardHolder;
-    }
-
-    public BigDecimal getChargedAmount() {
-        return chargedAmount;
-    }
-
-    public void setChargedAmount(final BigDecimal chargedAmount) {
-        this.chargedAmount = chargedAmount;
     }
 }
