@@ -5,10 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import ru.marina.tshop.orders.lineitems.LineItem;
 import ru.marina.tshop.orders.orderstatuses.OrderStatus;
 import ru.marina.tshop.users.UserService;
 
+import java.awt.*;
 import java.util.List;
 
 @RestController
@@ -58,5 +60,13 @@ public class OrderController {
     @GetMapping("/orders/all/{orderId}")
     public Order getOrder(@PathVariable("orderId") final String orderId){
         return orderService.getOrder(orderId);
+    }
+
+    @PostMapping("/pay")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String  getOrder(@RequestBody final ProcessPaymentRequest request){
+        final String uri= "http://localhost:9090/paymentgateway/api/pay";
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForObject(uri, request, String.class);
     }
 }
