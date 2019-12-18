@@ -325,4 +325,36 @@
             <column name="role">ADMIN</column>
         </insert>
     </changeSet>
+
+    <changeSet id="change-data-import" author="Marina Krivonosova">
+        <update tableName="payment_methods">
+            <column name="payment_method" value="Card" type="varchar(256)"/>
+            <where>id='pmId1'</where>
+        </update>
+        <update tableName="delivery_methods">
+            <column name="delivery_method" value="Express delivery" type="varchar(256)"/>
+            <where>id='dmId1'</where>
+        </update>
+        <update tableName="delivery_methods">
+            <column name="delivery_method" value="Post" type="varchar(256)"/>
+            <where>id='dmId2'</where>
+        </update>
+        <update tableName="payment_statuses">
+            <column name="payment_status" value="Paid" type="varchar(256)"/>
+            <where>id='psId1'</where>
+        </update>
+    </changeSet>
+
+    <changeSet id="delete-data-import" author="Marina Krivonosova">
+        <delete tableName="payment_statuses">
+            <where>id='psId2'</where>
+        </delete>
+        <delete tableName="payment_methods">
+            <where>id='pmId2'</where>
+        </delete>
+        <delete tableName="payment_methods">
+            <where>id='pmId3'</where>
+        </delete>
+    </changeSet>
+
 </databaseChangeLog>

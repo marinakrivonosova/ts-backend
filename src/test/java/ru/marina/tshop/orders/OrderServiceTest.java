@@ -8,18 +8,19 @@ import liquibase.resource.ClassLoaderResourceAccessor;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import ru.marina.tshop.orders.lineitems.LineItem;
 import ru.marina.tshop.orders.lineitems.LineItemDao;
 import ru.marina.tshop.orders.orderstatuses.OrderStatusDao;
+import ru.marina.tshop.orders.paymentgateway.PaymentGatewayService;
 import ru.marina.tshop.products.ProductDao;
 import ru.marina.tshop.utils.IdGenerator;
 import ru.marina.tshop.utils.UniqueSeq;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.time.YearMonth;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -27,20 +28,16 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class OrderServiceTest {
     private ProductDao productDao;
     private LineItemDao lineItemDao;
-    private OrderStatusDao orderStatusDao;
     private OrderDao orderDao;
     private OrderService orderService;
-    @MockBean
     private Configuration configuration = mock(Configuration.class);
-
-    @MockBean
     private UniqueSeq uniqueSeq = mock(UniqueSeq.class);
+    private PaymentGatewayService paymentGatewayService = mock(PaymentGatewayService.class);
 
     @BeforeEach
     void setupDB() throws Exception {
@@ -50,16 +47,16 @@ public class OrderServiceTest {
         productDao = new ProductDao(namedParameterJdbcTemplate);
         orderDao = new OrderDao(namedParameterJdbcTemplate);
         lineItemDao = new LineItemDao(namedParameterJdbcTemplate);
-        orderStatusDao = new OrderStatusDao(namedParameterJdbcTemplate);
-        Connection connection = ds.getConnection();
+        final OrderStatusDao orderStatusDao = new OrderStatusDao(namedParameterJdbcTemplate);
+        final Connection connection = ds.getConnection();
         final Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
         final Liquibase liquibase = new Liquibase("test-migration.xml", new ClassLoaderResourceAccessor(), database);
         liquibase.dropAll();
         liquibase.update("test");
-        orderService = new OrderService(orderDao, new IdGenerator(), uniqueSeq, lineItemDao, productDao, configuration, orderStatusDao);
+        orderService = new OrderService(orderDao, new IdGenerator(), uniqueSeq, lineItemDao, productDao, configuration, orderStatusDao, paymentGatewayService);
 
         when(configuration.getInitialOrderStatus()).thenReturn("created");
-        when(configuration.getNotPaidPaymentStatusId()).thenReturn("psId2");
+        when(configuration.getPaidPaymentStatusId()).thenReturn("psId1");
         when(uniqueSeq.getNext()).thenReturn("12345");
     }
 
@@ -73,7 +70,13 @@ public class OrderServiceTest {
                         new CreateLineItem("prId3", 1)),
                 "address",
                 "dmId1",
-                "pmId2");
+                "pmId1",
+                new PaymentInformation(
+                        "cardNumber",
+                        "cvc",
+                        YearMonth.of(2030, 2),
+                        "cardHolder"
+                ));
 
         assertEquals(new Order(
                 orderId,
@@ -82,8 +85,8 @@ public class OrderServiceTest {
                 "address",
                 "osId1",
                 "dmId1",
-                "pmId2",
-                "psId2"
+                "pmId1",
+                "psId1"
         ), orderDao.getOrder(orderId));
 
         final List<LineItem> lineItems = lineItemDao.listLineItems(orderId);
@@ -106,6 +109,8 @@ public class OrderServiceTest {
         assertEquals(97, productDao.getProduct("prId1").getCount());
         assertEquals(49, productDao.getProduct("prId2").getCount());
         assertEquals(19, productDao.getProduct("prId3").getCount());
+
+        verify(paymentGatewayService).doPayment("cardNumber", "cvc", YearMonth.of(2030, 2), "cardHolder", new BigDecimal("43000.00"));
     }
 
     @Test
@@ -115,7 +120,13 @@ public class OrderServiceTest {
                 singletonList(new CreateLineItem("nonExistingProductId", 3)),
                 "address",
                 "dmId1",
-                "pmId2")
+                "pmId1",
+                new PaymentInformation(
+                        "cardNumber",
+                        "cvc",
+                        YearMonth.of(2030, 2),
+                        "cardHolder"
+                ))
         );
     }
 
@@ -126,14 +137,26 @@ public class OrderServiceTest {
                 emptyList(),
                 "address",
                 "dmId1",
-                "pmId2")
+                "pmId1",
+                new PaymentInformation(
+                        "cardNumber",
+                        "cvc",
+                        YearMonth.of(2030, 2),
+                        "cardHolder"
+                ))
         );
         assertThrows(IllegalArgumentException.class, () -> orderService.addOrder(
                 "uId1",
                 null,
                 "address",
                 "dmId1",
-                "pmId2")
+                "pmId1",
+                new PaymentInformation(
+                        "cardNumber",
+                        "cvc",
+                        YearMonth.of(2030, 2),
+                        "cardHolder"
+                ))
         );
     }
 
@@ -144,7 +167,13 @@ public class OrderServiceTest {
                 singletonList(new CreateLineItem("prId1", 150)),
                 "address",
                 "dmId1",
-                "pmId2")
+                "pmId1",
+                new PaymentInformation(
+                        "cardNumber",
+                        "cvc",
+                        YearMonth.of(2030, 2),
+                        "cardHolder"
+                ))
         );
     }
 

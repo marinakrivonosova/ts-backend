@@ -1,8 +1,15 @@
 $(document).ready(function () {
     $("#all-orders").hide();
+    $("#login-alert").show();
+    $("#order-status").hide();
+
     const orderTemplate = Handlebars.compile($("#dropdown-template-orders").html());
     const orderStatusTemplate = Handlebars.compile($("#dropdown-status-template").html());
 
+    $.get(apiPath + "/get-cookies", function (cookie, status, jqXHR) {
+        $("#order-status").show();
+        $("#login-alert").hide();
+    });
 
     $.get(apiPath + "/order-statuses", function (orderStatuses, status, jqXHR) {
         $.each(orderStatuses, function (index, status) {

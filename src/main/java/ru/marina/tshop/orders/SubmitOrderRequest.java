@@ -8,14 +8,21 @@ public class SubmitOrderRequest {
     private String paymentMethodId;
     private List<CreateLineItem> lineItemList;
 
+    private PaymentInformation paymentInformation;
+
     public SubmitOrderRequest() {
     }
 
-    public SubmitOrderRequest(final List<String> productIds, final String address, final String deliveryMethodId, final String paymentMethodId, final List<CreateLineItem> lineItemList) {
+    public SubmitOrderRequest(final String address,
+                              final String deliveryMethodId,
+                              final String paymentMethodId,
+                              final List<CreateLineItem> lineItemList,
+                              final PaymentInformation paymentInformation) {
         this.address = address;
         this.deliveryMethodId = deliveryMethodId;
         this.paymentMethodId = paymentMethodId;
         this.lineItemList = lineItemList;
+        this.paymentInformation = paymentInformation;
     }
 
     public String getAddress() {
@@ -48,5 +55,13 @@ public class SubmitOrderRequest {
 
     public void setLineItemList(final List<CreateLineItem> lineItemList) {
         this.lineItemList = lineItemList;
+    }
+
+    public PaymentInformation getPaymentInformation() {
+        return paymentInformation;
+    }
+
+    public void setPaymentInformation(final PaymentInformation paymentInformation) {
+        this.paymentInformation = paymentInformation;
     }
 }

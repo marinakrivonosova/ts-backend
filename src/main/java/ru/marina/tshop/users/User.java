@@ -1,8 +1,6 @@
 package ru.marina.tshop.users;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.StringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 
 import java.time.LocalDate;
@@ -15,7 +13,7 @@ public class User {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate birthDate;
     private String email;
-    private String hashedPassword; // TODO regenerate toString
+    private String hashedPassword;
     private String phone;
 
     public User(final String id, final String firstName, final String lastName, final LocalDate birthDate,

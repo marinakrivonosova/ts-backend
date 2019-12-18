@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 public class ProductController {
     private final ProductService productService;
@@ -22,8 +20,8 @@ public class ProductController {
                                                 @RequestParam("offset") final int offset,
                                                 @RequestParam("limit") final int limit) {
         final FilterProductResponse response = new FilterProductResponse();
-        response.products = productService.filterProducts(title, offset, limit);
-        response.overallSuitableProducts = productService.getProductCount(title);
+        response.setProducts(productService.filterProducts(title, offset, limit));
+        response.setOverallSuitableProducts(productService.getProductCount(title));
         return response;
     }
 

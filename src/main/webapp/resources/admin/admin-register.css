@@ -1,0 +1,6 @@
+.navbar.navbar-dark.bg-primary {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

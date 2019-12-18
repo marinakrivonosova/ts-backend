@@ -5,12 +5,10 @@ import java.util.Objects;
 
 public class Product {
     private String productId;
-    //TODO change to title
     private String name;
     private String description;
     private BigDecimal price;
     private int weight;
-    //TODO change to double
     private int volume;
     private int count;
     private String categoryId;

@@ -3,21 +3,17 @@
 <head>
     <link rel="stylesheet" href="cart.css">
     <link rel="stylesheet" href="general.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
 
     <script src="jquery-3.4.1.js"></script>
     <script src="handlebars-v4.4.3.js"></script>
     <script src="jquery.validate.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="popper.min.js"></script>
+    <script src="js.cookie-2.2.1.min.js"></script>
+
     <script src="cart.js"></script>
     <script src="context.js"></script>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-            crossorigin="anonymous"></script>
 
     <title>Cart</title>
 
@@ -78,18 +74,53 @@
                 <tbody id="cart-items">
                 </tbody>
             </table>
+            <div>
+                <p class="btn btn-primary" id="clear-cart">Clear card</p>
+            </div>
         </div>
         <div class="col-4" id="submit-order-card">
             <div class="card">
                 <div class="card-body" id="card-body">
                     <h5 class="card-title">Total price</h5>
                     <h6 class="card-subtitle mb-2 text-muted" id="total-price"></h6>
+                    <div class="alert alert-primary" role="alert" id="alert-card">
+                        For submitting an order you need to <a href="login.html" class="alert-link">login</a></div>
+                    <form id="payment-form">
+                        <div class="form-group">
+                            <label for="cc-name" class="control-label mb-1">Cardholder</label>
+                            <input id="cc-name" name="cardholder" type="text" class="form-control cc-name" required
+                                   autocomplete="cc-name" aria-required="true" aria-invalid="false"
+                                   aria-describedby="cc-name-error">
+                        </div>
+                        <div class="form-group">
+                            <label for="cc-number" class="control-label mb-1">Card number</label>
+                            <input id="cc-number" name="cardnumber"
+                                   class="form-control cc-number" required="" pattern="[0-9]{16}">
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="cc-exp" class="control-label mb-1">Expiration</label>
+                                    <input id="cc-exp" name="expiration" type="tel" class="form-control cc-exp" required
+                                           placeholder="YYYY-MM" autocomplete="cc-exp">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label for="x_card_code" class="control-label mb-1">Security code</label>
+                                <div class="input-group">
+                                    <input id="x_card_code" name="cvc" type="tel" class="form-control cc-cvc"
+                                           required autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     <a href="#" class="btn btn-primary mb-2" id="submit-order">Submit order</a>
+                    <div class="alert alert-primary" role="alert" id="alert-order">
+                       Payment denied</div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="row" id="additional-info">
         <div class="col">
             <form id="address-form">
